@@ -2,6 +2,8 @@ import { createAppContainer } from "react-navigation"
 import { createStackNavigator } from "react-navigation-stack"
 import ViewNotes from "../screens/ViewNotes"
 import AddNotes from "../screens/AddNotes"
+import Login from "../screens/Login"
+import ForgotPassword from '../screens/ForgotPassword'
 
 const StackNavigator = createStackNavigator(
 	{
@@ -11,6 +13,12 @@ const StackNavigator = createStackNavigator(
 		AddNotes: {
 			screen: AddNotes,
 		},
+		Login: {
+			screen: Login,
+		},
+		ForgotPassword: {
+			screen: ForgotPassword
+		}
 	},
 	{
 		initialRouteName: "ViewNotes",
