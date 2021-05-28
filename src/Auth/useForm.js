@@ -10,7 +10,7 @@ function useForm(initialState) {
   //   }))
   // }
 
-  function useMultiState(defaultValues = {}) {
+  function handleChange(defaultValues) {
     const [values, setValues] = useState(defaultValues)
 
     const setState = (key) => (value) =>
@@ -22,7 +22,7 @@ function useForm(initialState) {
     }
   }
 
-  return useMultiState
+  return { handleChange }
 }
 
 export default useForm

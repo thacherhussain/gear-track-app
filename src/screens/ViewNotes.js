@@ -9,28 +9,16 @@ function ViewNotes({ navigation }) {
     note.id = notes.length + 1
     setNotes([...notes, note])
   }
-  const [users, setUsers] = useState([])
-  const onSignUp = (user) => {
-    setUsers([...users, user])
-  }
-
-  const [values, setValues] = useState({})
-  const onRegister = (user) => {
-    setValues({ user })
-  }
 
   return (
     <>
       <Header titleText='Simple Note Taker' />
       <View style={{ flexDirection: 'row' }}>
-        <Button
-          onPress={() =>
-            navigation.navigate('Login', { onSignUp, onRegister })
-          }>
-          Login
+        <Button onPress={() => navigation.navigate('Login')}>Login</Button>
+        <Button onPress={() => navigation.navigate('ForgotPassword')}>
+          {/* <Button onPress={() => console.log(values)}> */}
+          Forgot
         </Button>
-        {/* <Button onPress={() => navigation.navigate('ForgotPassword')}> */}
-        <Button onPress={() => console.log(values)}>Forgot</Button>
       </View>
       <View style={styles.container}>
         {notes.length === 0 ? (

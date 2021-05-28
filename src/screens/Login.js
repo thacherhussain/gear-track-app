@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { IconButton, TextInput, FAB, Button } from 'react-native-paper'
 import Header from '../components/Header'
 import useForm from '../Auth/useForm'
+import firebaseInstance from '../firebase'
 
 const INITIAL_STATE = {
   name: '',
@@ -10,27 +11,25 @@ const INITIAL_STATE = {
   password: '',
 }
 
-// function useMultiState(defaultValues = {}) {
-//   const [values, setValues] = useState(defaultValues)
-
-//   const setState = (key) => (value) =>
-//     setValues((prev) => ({ ...prev, [key]: value }))
-
-//   return {
-//     ...values,
-//     setState,
-//   }
-// }
-
 function Login({ navigation }) {
-  const { name, password, email, setState } = useMultiState(INITIAL_STATE)
-  console.log(name, password, email)
-  //   const [name, setName] = useState('')
-  //   const [password, setPassword] = useState('')
-  //   const [email, setEmail] = useState('')
-  useForm(INITIAL_STATE)
-
+  const { handleChange } = useForm(INITIAL_STATE)
+  const { name, password, email, setState } = handleChange(INITIAL_STATE)
   const [login, setLogin] = useState(false)
+  const [firebaseError, setFirebaseError] = useState(null)
+
+  console.log(name, password, email)
+
+  async function authenticateUser() {
+    try {
+      login
+        ? await firebaseInstance.login(email, password)
+        : await firebaseInstance.register(name, email, password)
+      navigation.goBack()
+    } catch (err) {
+      console.log('Authentication Error', err)
+      setFirebaseError(err.message)
+    }
+  }
 
   function signUp() {
     //   1. Is Form Valid
@@ -85,7 +84,9 @@ function Login({ navigation }) {
           style={styles.title}
         />
 
-        <Button onPress={() => signUp()}>{login ? 'Sign In' : 'Submit'}</Button>
+        <Button onPress={() => authenticateUser()}>
+          {login ? 'Sign In' : 'Submit'}
+        </Button>
         <Button onPress={() => setLogin((prevLogin) => !prevLogin)}>
           {login ? 'Sign Up' : 'Already Have an Account?'}
         </Button>
