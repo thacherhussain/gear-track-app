@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import { Text, FAB, List, Button } from 'react-native-paper'
 import Header from '../components/Header'
+import firebase, { FirebaseContext } from '../firebase'
 
 function ViewNotes({ navigation }) {
   const [notes, setNotes] = useState([])
@@ -9,6 +10,8 @@ function ViewNotes({ navigation }) {
     note.id = notes.length + 1
     setNotes([...notes, note])
   }
+
+  const { user } = useContext(FirebaseContext)
 
   return (
     <>
@@ -19,7 +22,13 @@ function ViewNotes({ navigation }) {
           {/* <Button onPress={() => console.log(values)}> */}
           Forgot
         </Button>
+        {user && <Button onPress={() => firebase.logout()}>Logout</Button>}
       </View>
+      {user && (
+        <View>
+          <Text>Hey {user.displayName}!</Text>
+        </View>
+      )}
       <View style={styles.container}>
         {notes.length === 0 ? (
           <View style={styles.titleContainer}>

@@ -1,17 +1,8 @@
 import React, { useState } from 'react'
 
 function useForm(initialState) {
-  // const [values, setValues] = useState(initialState)
-
-  // function handleChange(value) {
-  //   setValues((prevValues) => ({
-  //     ...prevValues,
-  //     [value.name]: value.value,
-  //   }))
-  // }
-
-  function handleChange(defaultValues) {
-    const [values, setValues] = useState(defaultValues)
+  function handleChange(initialState) {
+    const [values, setValues] = useState(initialState)
 
     const setState = (key) => (value) =>
       setValues((prev) => ({ ...prev, [key]: value }))
@@ -22,7 +13,12 @@ function useForm(initialState) {
     }
   }
 
-  return { handleChange }
+  function handleBlur() {
+    const validationErrors = validate(values)
+    setErrors(validationErrors)
+  }
+
+  return { handleChange, handleBlur }
 }
 
 export default useForm

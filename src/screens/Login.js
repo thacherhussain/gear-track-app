@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { IconButton, TextInput, FAB, Button } from 'react-native-paper'
-import Header from '../components/Header'
+import { IconButton, TextInput, FAB, Button, Text } from 'react-native-paper'
+
 import useForm from '../Auth/useForm'
+import validateLogin from '../Auth/validateLogin'
 import firebaseInstance from '../firebase'
+import Header from '../components/Header'
 
 const INITIAL_STATE = {
   name: '',
@@ -11,10 +13,22 @@ const INITIAL_STATE = {
   password: '',
 }
 
+function handleChange(initialState) {
+  const [values, setValues] = useState(initialState)
+
+  const setState = (key) => (value) =>
+    setValues((prev) => ({ ...prev, [key]: value }))
+
+  return {
+    ...values,
+    setState,
+  }
+}
+
 function Login({ navigation }) {
-  const { handleChange } = useForm(INITIAL_STATE)
   const { name, password, email, setState } = handleChange(INITIAL_STATE)
   const [login, setLogin] = useState(false)
+  const [errors, setErrors] = useState({})
   const [firebaseError, setFirebaseError] = useState(null)
 
   console.log(name, password, email)
@@ -24,7 +38,6 @@ function Login({ navigation }) {
       login
         ? await firebaseInstance.login(email, password)
         : await firebaseInstance.register(name, email, password)
-      navigation.goBack()
     } catch (err) {
       console.log('Authentication Error', err)
       setFirebaseError(err.message)
@@ -33,16 +46,16 @@ function Login({ navigation }) {
 
   function signUp() {
     //   1. Is Form Valid
-
-    // 1.1 If it's not return;
+    setErrors(validateLogin(email, password))
+    // 1.1 If it's not return
 
     // 2 If it is valid, make call to firebase
 
     // 2.1 Is this valid with firebase? (Meets password criteria, email doesn't exist) return if not
 
     // 3 - You're logged in - navigate to whatever
-    navigation.state.params.onSignUp({ name, email, password })
-    navigation.goBack()
+    authenticateUser()
+    // navigation.goBack()
   }
 
   return (
@@ -76,6 +89,7 @@ function Login({ navigation }) {
           onChangeText={setState('email')}
           style={styles.title}
         />
+        {errors.email && <Text>{errors.email}</Text>}
         <TextInput
           label='Password'
           value={password}
@@ -83,10 +97,10 @@ function Login({ navigation }) {
           onChangeText={setState('password')}
           style={styles.title}
         />
+        {errors.password && <Text>{errors.password}</Text>}
+        {firebaseError && <Text>{firebaseError}</Text>}
 
-        <Button onPress={() => authenticateUser()}>
-          {login ? 'Sign In' : 'Submit'}
-        </Button>
+        <Button onPress={() => signUp()}>{login ? 'Sign In' : 'Submit'}</Button>
         <Button onPress={() => setLogin((prevLogin) => !prevLogin)}>
           {login ? 'Sign Up' : 'Already Have an Account?'}
         </Button>
