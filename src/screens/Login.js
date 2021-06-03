@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { IconButton, TextInput, FAB, Button, Text } from 'react-native-paper'
+import { IconButton, TextInput, Button, Text } from 'react-native-paper'
 
 import useForm from '../Auth/useForm'
 import validateLogin from '../Auth/validateLogin'
@@ -27,11 +27,11 @@ function handleChange(initialState) {
 
 function Login({ navigation }) {
   const { name, password, email, setState } = handleChange(INITIAL_STATE)
-  const [login, setLogin] = useState(false)
+  const [login, setLogin] = useState(true)
   const [errors, setErrors] = useState({})
   const [firebaseError, setFirebaseError] = useState(null)
 
-  console.log(name, password, email)
+  // console.log(name, password, email)
 
   async function authenticateUser() {
     try {
@@ -88,6 +88,7 @@ function Login({ navigation }) {
           mode='outlined'
           onChangeText={setState('email')}
           style={styles.title}
+          autoCapitalize={'none'}
         />
         {errors.email && <Text>{errors.email}</Text>}
         <TextInput
@@ -96,6 +97,8 @@ function Login({ navigation }) {
           mode='outlined'
           onChangeText={setState('password')}
           style={styles.title}
+          autoCapitalize={'none'}
+          secureTextEntry={true}
         />
         {errors.password && <Text>{errors.password}</Text>}
         {firebaseError && <Text>{firebaseError}</Text>}
@@ -107,14 +110,6 @@ function Login({ navigation }) {
         <Button onPress={() => navigation.navigate('ForgotPassword')}>
           Forgot Password
         </Button>
-
-        <FAB
-          style={styles.fab}
-          small
-          icon='check'
-          disabled={(name && email && password) == '' ? true : false}
-          onPress={() => onSaveLogin()}
-        />
       </View>
     </>
   )

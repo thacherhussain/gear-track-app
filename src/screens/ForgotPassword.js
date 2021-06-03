@@ -1,16 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { IconButton, TextInput, FAB, Button } from 'react-native-paper'
+import { IconButton, TextInput, Button } from 'react-native-paper'
 import Header from '../components/Header'
-
-const INITIAL_STATE = {
-  name: '',
-  email: '',
-  password: '',
-}
+import FirebaseContext from '../firebase/context'
+import { ErrorText, FeedbackText } from '../components'
 
 function ForgotPassword({ navigation }) {
   const [email, setEmail] = useState('')
+  const { firebase } = useContext(FirebaseContext)
+  const [isPasswordReset, setIsPasswordReset] = useState(false)
+  const [passwordResetError, setPasswordResetError] = useState(null)
+
+  const handleResetPassword = async () => {
+    try {
+      await firebase.resetPassword(email)
+      setIsPasswordReset(true)
+      setPasswordResetError(null)
+    } catch (err) {
+      console.error('Error sending email', err)
+      setPasswordResetError(err.message)
+      setIsPasswordReset(false)
+    }
+  }
 
   return (
     <>
@@ -28,13 +39,15 @@ function ForgotPassword({ navigation }) {
           value={email}
           mode='outlined'
           onChangeText={setEmail}
+          autoCapitalize={'none'}
           style={styles.title}
         />
 
-        <Button onPress={() => navigation.navigate('Login')}>Submit</Button>
-        <Button onPress={() => navigation.navigate('Login')}>
-          Back to Login
-        </Button>
+        <Button onPress={() => handleResetPassword()}>Reset Password</Button>
+        {isPasswordReset && (
+          <FeedbackText text={'Check your email to reset password'} />
+        )}
+        {passwordResetError && <ErrorText errorText={passwordResetError} />}
       </View>
     </>
   )
@@ -57,16 +70,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 20,
-  },
-  text: {
-    height: 300,
-    fontSize: 16,
-  },
-  fab: {
-    position: 'absolute',
-    margin: 20,
-    right: 0,
-    bottom: 0,
   },
 })
 

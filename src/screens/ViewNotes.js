@@ -17,11 +17,14 @@ function ViewNotes({ navigation }) {
     <>
       <Header titleText='Simple Note Taker' />
       <View style={{ flexDirection: 'row' }}>
-        <Button onPress={() => navigation.navigate('Login')}>Login</Button>
-        <Button onPress={() => navigation.navigate('ForgotPassword')}>
-          {/* <Button onPress={() => console.log(values)}> */}
-          Forgot
-        </Button>
+        {!user && (
+          <>
+            <Button onPress={() => navigation.navigate('Login')}>Login</Button>
+            <Button onPress={() => navigation.navigate('ForgotPassword')}>
+              Forgot
+            </Button>
+          </>
+        )}
         {user && <Button onPress={() => firebase.logout()}>Logout</Button>}
       </View>
       {user && (
