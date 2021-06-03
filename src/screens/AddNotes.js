@@ -1,15 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { IconButton, TextInput, FAB } from 'react-native-paper'
 import Header from '../components/Header'
+import firebaseInstance, { FirebaseContext } from '../firebase'
 
 function AddNotes({ navigation }) {
   const [noteTitle, setNoteTitle] = useState('')
   const [noteValue, setNoteValue] = useState('')
-
-  function onSaveNote() {
-    navigation.state.params.addNote({ noteTitle, noteValue })
-    navigation.goBack()
+  const { user } = useContext(FirebaseContext)
+  const userId = user.uid
+  function handleAddNote() {
+    if (!user) {
+      navigation.goBack()
+    } else {
+      const newNote = {
+        noteTitle,
+        noteValue,
+      }
+      firebaseInstance.db
+        .collection('main')
+        .doc(userId)
+        .collection('notes')
+        .add(newNote)
+      navigation.navigate('ViewNotes')
+    }
   }
 
   return (
@@ -46,7 +60,7 @@ function AddNotes({ navigation }) {
           small
           icon='check'
           disabled={noteTitle == '' ? true : false}
-          onPress={() => onSaveNote()}
+          onPress={() => handleAddNote()}
         />
       </View>
     </>

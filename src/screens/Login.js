@@ -38,6 +38,7 @@ function Login({ navigation }) {
       login
         ? await firebaseInstance.login(email, password)
         : await firebaseInstance.register(name, email, password)
+      navigation.navigate('ViewNotes')
     } catch (err) {
       console.log('Authentication Error', err)
       setFirebaseError(err.message)
@@ -65,13 +66,6 @@ function Login({ navigation }) {
       ) : (
         <Header titleText={'Create Account'} />
       )}
-      <IconButton
-        icon='close'
-        size={25}
-        color='white'
-        onPress={() => navigation.goBack()}
-        style={styles.iconButton}
-      />
       <View style={styles.container}>
         {!login && (
           <TextInput
@@ -105,7 +99,7 @@ function Login({ navigation }) {
 
         <Button onPress={() => signUp()}>{login ? 'Sign In' : 'Submit'}</Button>
         <Button onPress={() => setLogin((prevLogin) => !prevLogin)}>
-          {login ? 'Sign Up' : 'Already Have an Account?'}
+          {login ? 'Need an account?' : 'Already Have an Account?'}
         </Button>
         <Button onPress={() => navigation.navigate('ForgotPassword')}>
           Forgot Password

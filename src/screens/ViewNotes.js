@@ -1,17 +1,31 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import { Text, FAB, List, Button } from 'react-native-paper'
 import Header from '../components/Header'
-import firebase, { FirebaseContext } from '../firebase'
+import { FirebaseContext } from '../firebase'
 
 function ViewNotes({ navigation }) {
   const [notes, setNotes] = useState([])
-  const addNote = (note) => {
-    note.id = notes.length + 1
-    setNotes([...notes, note])
+  const { user, firebase } = useContext(FirebaseContext)
+
+  useEffect(() => {
+    getNotes()
+  }, [])
+
+  function getNotes() {
+    firebase.db.collection('notes').onSnapshot(handleSnapshot)
   }
 
-  const { user } = useContext(FirebaseContext)
+  function handleSnapshot(snapshot) {
+    const notes = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      }
+    })
+    setNotes(notes)
+    console.log({ notes })
+  }
 
   return (
     <>
@@ -56,12 +70,7 @@ function ViewNotes({ navigation }) {
           small
           icon='plus'
           label='Add new note'
-          // add a second parameter object
-          onPress={() =>
-            navigation.navigate('AddNotes', {
-              addNote,
-            })
-          }
+          onPress={() => navigation.navigate('AddNotes')}
         />
       </View>
     </>

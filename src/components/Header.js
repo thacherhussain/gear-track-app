@@ -1,29 +1,35 @@
-import React from "react"
-import { View, StyleSheet } from "react-native"
-import { Appbar, Title } from "react-native-paper"
+import React, { useContext } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Appbar, Title, Button } from 'react-native-paper'
+import { FirebaseContext } from '../firebase'
 
 function Header({ titleText }) {
-	return (
-		<Appbar.Header style={styles.headerContainer}>
-			<View style={styles.container}>
-				<Title style={styles.title}>{titleText}</Title>
-			</View>
-		</Appbar.Header>
-	)
+  const { user, firebase } = useContext(FirebaseContext)
+
+  return (
+    <Appbar.Header style={styles.headerContainer}>
+      {user && (
+        <Button color={'white'} onPress={() => firebase.logout()}>
+          Logout
+        </Button>
+      )}
+
+      <View style={styles.container}>
+        <Title style={styles.title}>{titleText}</Title>
+      </View>
+    </Appbar.Header>
+  )
 }
 
 const styles = StyleSheet.create({
-	headerContainer: {
-		backgroundColor: "#60DBC5",
-	},
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	title: {
-		color: "#2E7166",
-	},
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    color: 'white',
+  },
 })
 
 export default Header
