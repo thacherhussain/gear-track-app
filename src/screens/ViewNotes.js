@@ -13,6 +13,7 @@ function ViewNotes({ navigation }) {
   }, [])
 
   function getNotes() {
+    //should this by firebaseInstance?
     firebase.db.collection('notes').onSnapshot(handleSnapshot)
   }
 
@@ -29,7 +30,7 @@ function ViewNotes({ navigation }) {
 
   return (
     <>
-      <Header titleText='Simple Note Taker' />
+      <Header titleText={`${user.displayName}'s Notes`} />
       <View style={{ flexDirection: 'row' }}>
         {!user && (
           <>
@@ -40,11 +41,6 @@ function ViewNotes({ navigation }) {
           </>
         )}
       </View>
-      {user && (
-        <View>
-          <Text>Hey {user.displayName}!</Text>
-        </View>
-      )}
       <View style={styles.container}>
         {notes.length === 0 ? (
           <View style={styles.titleContainer}>

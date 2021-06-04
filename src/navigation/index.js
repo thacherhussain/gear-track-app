@@ -1,31 +1,40 @@
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import React, { useContext } from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 
-import ViewNotes from '../screens/ViewNotes'
+import { FirebaseContext } from '../firebase'
 import AddNotes from '../screens/AddNotes'
-import Login from '../screens/Login'
 import ForgotPassword from '../screens/ForgotPassword'
+import Login from '../screens/Login'
+import ViewNotes from '../screens/ViewNotes'
 
-const StackNavigator = createStackNavigator(
-  {
-    ViewNotes: {
-      screen: ViewNotes,
-    },
-    AddNotes: {
-      screen: AddNotes,
-    },
-    Login: {
-      screen: Login,
-    },
-    ForgotPassword: {
-      screen: ForgotPassword,
-    },
-  },
-  {
-    initialRouteName: 'ViewNotes',
-    headerMode: 'none',
-    mode: 'modal',
-  }
-)
+const Stack = createStackNavigator()
 
-export default createAppContainer(StackNavigator)
+function RootStack() {
+  const { user } = useContext(FirebaseContext)
+  const isSignedIn = () => (user ? true : false)
+
+  return (
+    <Stack.Navigator
+      initialRouteName='Login'
+      screenOptions={{ gestureEnabled: false, headerShown: false }}>
+      <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
+      <Stack.Screen name='AddNotes' component={AddNotes} />
+      <Stack.Screen name='ViewNotes' component={ViewNotes} />
+    </Stack.Navigator>
+  )
+}
+
+export default RootStack
+
+// {!isSignedIn ? (
+//   <>
+//     <Stack.Screen name='Login' component={Login} />
+//     <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
+//   </>
+// ) : (
+//   <>
+//     <Stack.Screen name='AddNotes' component={AddNotes} />
+//     <Stack.Screen name='ViewNotes' component={ViewNotes} />
+//   </>
+// )}
