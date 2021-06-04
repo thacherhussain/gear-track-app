@@ -39,7 +39,6 @@ function ViewNotes({ navigation }) {
             </Button>
           </>
         )}
-        {user && <Button onPress={() => firebase.logout()}>Logout</Button>}
       </View>
       {user && (
         <View>
@@ -93,6 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   fab: {
+    backgroundColor: '#6200ed',
     position: 'absolute',
     margin: 20,
     right: 0,

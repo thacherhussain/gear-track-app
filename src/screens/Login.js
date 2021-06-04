@@ -116,13 +116,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
   },
-  iconButton: {
-    backgroundColor: 'rgba(46, 113, 102, 0.8)',
-    position: 'absolute',
-    right: 0,
-    top: 40,
-    margin: 10,
-  },
   title: {
     fontSize: 24,
     marginBottom: 20,

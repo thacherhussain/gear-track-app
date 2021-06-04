@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Appbar, Title, Button } from 'react-native-paper'
+import { Appbar, Title, Button, IconButton } from 'react-native-paper'
 import { FirebaseContext } from '../firebase'
 
 function Header({ titleText }) {
@@ -8,14 +8,26 @@ function Header({ titleText }) {
 
   return (
     <Appbar.Header style={styles.headerContainer}>
-      {user && (
-        <Button color={'white'} onPress={() => firebase.logout()}>
-          Logout
-        </Button>
-      )}
-
+      <View style={{ flex: 1 }}>
+        {user && (
+          <IconButton
+            icon='cog-outline'
+            color={'white'}
+            onPress={() => console.log('Settings')}
+          />
+        )}
+      </View>
       <View style={styles.container}>
         <Title style={styles.title}>{titleText}</Title>
+      </View>
+      <View style={{ flex: 1 }}>
+        {user && (
+          <IconButton
+            icon='logout-variant'
+            color={'white'}
+            onPress={() => firebase.logout()}
+          />
+        )}
       </View>
     </Appbar.Header>
   )
@@ -23,7 +35,7 @@ function Header({ titleText }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 6,
     justifyContent: 'center',
     alignItems: 'center',
   },
