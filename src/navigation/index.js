@@ -1,5 +1,6 @@
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
+
 import ViewNotes from '../screens/ViewNotes'
 import AddNotes from '../screens/AddNotes'
 import Login from '../screens/Login'
@@ -21,7 +22,7 @@ const StackNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'ViewNotes',
     headerMode: 'none',
     mode: 'modal',
   }

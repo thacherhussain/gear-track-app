@@ -62,7 +62,7 @@ function Login({ navigation }) {
   return (
     <>
       {login ? (
-        <Header titleText={'Log In'} />
+        <Header titleText={'Log In'} navigation={navigation} />
       ) : (
         <Header titleText={'Create Account'} />
       )}

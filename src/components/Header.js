@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { Appbar, Title, Button, IconButton } from 'react-native-paper'
 import { FirebaseContext } from '../firebase'
 
-function Header({ titleText }) {
+function Header({ navigation, titleText }) {
   const { user, firebase } = useContext(FirebaseContext)
 
   return (
@@ -26,6 +26,13 @@ function Header({ titleText }) {
             icon='logout-variant'
             color={'white'}
             onPress={() => firebase.logout()}
+          />
+        )}
+        {!user && (
+          <IconButton
+            icon='login-variant'
+            color={'white'}
+            onPress={() => navigation.navigate('Login')}
           />
         )}
       </View>
