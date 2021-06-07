@@ -4,7 +4,8 @@
 - finish Auth - Login/Logout/Forgot ✅
 - Notes being saved to Firebase ✅
 - Update flow to show Login/Sign Up until the user is logged ✅
-- Update to react-navigation 5.x ✅
+  - Update to react-navigation 5.x ✅
+- Navigation Updates
   - when the user is logged in show the 'View Notes' screen
   - https://reactnavigation.org/docs/auth-flow/
   - https://docs.expo.io/versions/latest/sdk/securestore/
@@ -20,3 +21,4 @@
 - clean up styling -- use RN paper with theme
 - convert to TS
 - update README/write up how-to
+- Add graphQL

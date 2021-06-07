@@ -9,7 +9,7 @@ import ViewNotes from '../screens/ViewNotes'
 
 const Stack = createStackNavigator()
 
-function RootStack() {
+function AppNavigator() {
   const { user } = useContext(FirebaseContext)
   const isSignedIn = () => (user ? true : false)
 
@@ -25,7 +25,7 @@ function RootStack() {
   )
 }
 
-export default RootStack
+export default AppNavigator
 
 // {!isSignedIn ? (
 //   <>

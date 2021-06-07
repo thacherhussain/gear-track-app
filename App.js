@@ -4,7 +4,7 @@ import { Provider as PaperProvider } from 'react-native-paper'
 
 import useAuth from './src/Auth/useAuth'
 import firebase, { FirebaseContext } from './src/firebase'
-import AppNavigator from './src/navigation'
+import AppNavigator from './src/navigation/AppNavigator'
 
 export default function App() {
   const user = useAuth()

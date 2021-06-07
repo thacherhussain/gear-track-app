@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Appbar, Title, Button, IconButton } from 'react-native-paper'
+import { Appbar, Title, IconButton } from 'react-native-paper'
 import { FirebaseContext } from '../firebase'
 
 function Header({ navigation, titleText }) {
