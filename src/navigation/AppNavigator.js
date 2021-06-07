@@ -16,7 +16,8 @@ function AppNavigator() {
   return (
     <Stack.Navigator
       initialRouteName='Login'
-      screenOptions={{ gestureEnabled: false, headerShown: false }}>
+      screenOptions={{ gestureEnabled: false, headerShown: false }}
+    >
       <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
       <Stack.Screen name='AddNotes' component={AddNotes} />

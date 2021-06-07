@@ -25,7 +25,7 @@ function ViewNotes({ navigation }) {
       }
     })
     setNotes(notes)
-    console.log({ notes })
+    // console.log({ notes })
   }
 
   return (

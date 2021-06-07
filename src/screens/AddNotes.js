@@ -54,7 +54,8 @@ function AddNotes({ navigation }) {
           </Button>
           <Button
             disabled={noteTitle == '' ? true : false}
-            onPress={() => handleAddNote()}>
+            onPress={() => handleAddNote()}
+          >
             Add Note
           </Button>
         </View>
