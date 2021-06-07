@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off", no-undef: "off"*/
+
 import React, { useState } from 'react'
 
 function useForm(initialState) {
