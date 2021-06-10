@@ -4,7 +4,7 @@ import { TextInput, Button, Text } from 'react-native-paper'
 
 import validateLogin from '../Auth/validateLogin'
 import firebaseInstance from '../firebase'
-import Header from '../components/Header'
+import Header from '@src/components/Header'
 
 const INITIAL_STATE = {
   name: '',
