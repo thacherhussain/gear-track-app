@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
-import { Text, FAB, List, Button } from 'react-native-paper'
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
+import { Text, FAB, List } from 'react-native-paper'
 import Header from '../components/Header'
 import { FirebaseContext } from '../firebase'
 
 function ViewNotes({ navigation }) {
   const [notes, setNotes] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const { user, firebase } = useContext(FirebaseContext)
 
   useEffect(() => {
@@ -13,6 +14,7 @@ function ViewNotes({ navigation }) {
   }, [])
 
   async function getNotes() {
+    setIsLoading(true)
     const doc = await firebase.db.collection('main').doc(user.uid).get()
     const notesRef = await doc.ref.collection('notes').get()
 
@@ -26,48 +28,45 @@ function ViewNotes({ navigation }) {
       })
     })
     setNotes(noteList)
+    setIsLoading(false)
   }
 
   return (
     <>
-      <Header titleText={`${user.displayName}'s Notes`} />
-      <View style={{ flexDirection: 'row' }}>
-        {!user && (
-          <>
-            <Button onPress={() => navigation.navigate('Login')}>Login</Button>
-            <Button onPress={() => navigation.navigate('ForgotPassword')}>
-              Forgot
-            </Button>
-          </>
-        )}
-      </View>
-      <View style={styles.container}>
-        {notes.length === 0 ? (
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>You do not have any notes</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={notes}
-            renderItem={({ item }) => (
-              <List.Item
-                title={item.noteTitle}
-                description={item.noteValue}
-                descriptionNumberOfLines={1}
-                titleStyle={styles.listTitle}
-              />
-            )}
-            keyExtractor={(item) => item.id.toString()}
+      <Header titleText={'Notes App'} />
+      {isLoading ? (
+        <View style={styles.titleContainer}>
+          <ActivityIndicator size='large' />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          {notes.length === 0 ? (
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>You do not have any notes</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={notes}
+              renderItem={({ item }) => (
+                <List.Item
+                  title={item.noteTitle}
+                  description={item.noteValue}
+                  descriptionNumberOfLines={1}
+                  titleStyle={styles.listTitle}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+            />
+          )}
+          <FAB
+            style={styles.fab}
+            small
+            icon='plus'
+            label='Add new note'
+            onPress={() => navigation.navigate('AddNotes')}
           />
-        )}
-        <FAB
-          style={styles.fab}
-          small
-          icon='plus'
-          label='Add new note'
-          onPress={() => navigation.navigate('AddNotes')}
-        />
-      </View>
+        </View>
+      )}
     </>
   )
 }

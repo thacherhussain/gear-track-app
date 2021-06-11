@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { IconButton, TextInput, Button } from 'react-native-paper'
+import { TextInput, Button } from 'react-native-paper'
 import Header from '../components/Header'
 import FirebaseContext from '../firebase/context'
 import { ErrorText, FeedbackText } from '../components'
@@ -26,13 +26,6 @@ function ForgotPassword({ navigation }) {
   return (
     <>
       <Header titleText={'Forgot Password'} />
-      <IconButton
-        icon='close'
-        size={25}
-        color='white'
-        onPress={() => navigation.goBack()}
-        style={styles.iconButton}
-      />
       <View style={styles.container}>
         <TextInput
           label='Email'
@@ -44,6 +37,7 @@ function ForgotPassword({ navigation }) {
         />
 
         <Button onPress={() => handleResetPassword()}>Reset Password</Button>
+        <Button onPress={() => navigation.goBack()}>Cancel</Button>
         {isPasswordReset && (
           <FeedbackText text={'Check your email to reset password'} />
         )}

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { TextInput, Button, Text } from 'react-native-paper'
+import { TextInput, Button } from 'react-native-paper'
 
 import validateLogin from '../Auth/validateLogin'
 import firebaseInstance from '../firebase'
 import Header from '@src/components/Header'
+import ErrorText from '@src/components/ErrorText'
 
 const INITIAL_STATE = {
   name: '',
@@ -66,42 +67,52 @@ function Login({ navigation }) {
       )}
       <View style={styles.container}>
         {!login && (
-          <TextInput
-            label='Name'
-            value={name}
-            mode='outlined'
-            onChangeText={setState('name')}
-            style={styles.title}
-          />
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.textInput}
+              label='Name'
+              value={name}
+              mode='outlined'
+              onChangeText={setState('name')}
+            />
+          </View>
         )}
-        <TextInput
-          label='Email'
-          value={email}
-          mode='outlined'
-          onChangeText={setState('email')}
-          style={styles.title}
-          autoCapitalize={'none'}
-        />
-        {errors.email && <Text>{errors.email}</Text>}
-        <TextInput
-          label='Password'
-          value={password}
-          mode='outlined'
-          onChangeText={setState('password')}
-          style={styles.title}
-          autoCapitalize={'none'}
-          secureTextEntry={true}
-        />
-        {errors.password && <Text>{errors.password}</Text>}
-        {firebaseError && <Text>{firebaseError}</Text>}
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.textInput}
+            label='Email'
+            value={email}
+            mode='outlined'
+            onChangeText={setState('email')}
+            autoCapitalize={'none'}
+          />
+          {errors.email && <ErrorText>{errors.email}</ErrorText>}
+        </View>
 
-        <Button onPress={() => signUp()}>{login ? 'Sign In' : 'Submit'}</Button>
-        <Button onPress={() => setLogin((prevLogin) => !prevLogin)}>
-          {login ? 'Need an account?' : 'Already Have an Account?'}
-        </Button>
-        <Button onPress={() => navigation.navigate('ForgotPassword')}>
-          Forgot Password
-        </Button>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.textInput}
+            label='Password'
+            value={password}
+            mode='outlined'
+            onChangeText={setState('password')}
+            autoCapitalize={'none'}
+            secureTextEntry={true}
+          />
+          {errors.password && <ErrorText>{errors.password}</ErrorText>}
+          {firebaseError && <ErrorText>{firebaseError}</ErrorText>}
+        </View>
+        <View style={styles.buttonView}>
+          <Button onPress={() => signUp()}>
+            {login ? 'Sign In' : 'Submit'}
+          </Button>
+          <Button onPress={() => setLogin((prevLogin) => !prevLogin)}>
+            {login ? 'Need an account?' : 'Already Have an Account?'}
+          </Button>
+          <Button onPress={() => navigation.navigate('ForgotPassword')}>
+            Forgot Password
+          </Button>
+        </View>
       </View>
     </>
   )
@@ -113,6 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingVertical: 20,
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -122,11 +134,15 @@ const styles = StyleSheet.create({
     height: 300,
     fontSize: 16,
   },
-  fab: {
-    position: 'absolute',
-    margin: 20,
-    right: 0,
-    bottom: 0,
+  textInput: {
+    fontSize: 20,
+    marginBottom: 5,
+  },
+  buttonView: {
+    marginTop: 20,
+  },
+  inputView: {
+    marginBottom: 20,
   },
 })
 
