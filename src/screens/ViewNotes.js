@@ -12,20 +12,20 @@ function ViewNotes({ navigation }) {
     getNotes()
   }, [])
 
-  function getNotes() {
-    //should this by firebaseInstance?
-    firebase.db.collection('notes').onSnapshot(handleSnapshot)
-  }
+  async function getNotes() {
+    const doc = await firebase.db.collection('main').doc(user.uid).get()
+    const notesRef = await doc.ref.collection('notes').get()
 
-  function handleSnapshot(snapshot) {
-    const notes = snapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-      }
+    const noteList = []
+
+    notesRef.forEach((note) => {
+      const data = note.data()
+      noteList.push({
+        ...data,
+        id: note.id,
+      })
     })
-    setNotes(notes)
-    // console.log({ notes })
+    setNotes(noteList)
   }
 
   return (

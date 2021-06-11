@@ -55,7 +55,6 @@ function Login({ navigation }) {
 
     // 3 - You're logged in - navigate to whatever
     authenticateUser()
-    // navigation.goBack()
   }
 
   return (
