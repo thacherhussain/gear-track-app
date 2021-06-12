@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
-import validateLogin from '../Auth/validateLogin'
-import firebaseInstance from '../firebase'
-import Header from '@src/components/Header'
-import ErrorText from '@src/components/ErrorText'
+import validateLogin from '@src/auth/validateLogin'
+import { Header, ErrorText } from '@src/components'
+import firebaseInstance from '@src/firebase'
 
 const INITIAL_STATE = {
   name: '',
@@ -30,7 +29,7 @@ function Login({ navigation }) {
   const [login, setLogin] = useState(true)
   const [errors, setErrors] = useState({})
   const [firebaseError, setFirebaseError] = useState(null)
-
+  const [showNameError, setShowNameError] = useState(false)
   // console.log(name, password, email)
 
   async function authenticateUser() {
@@ -45,17 +44,19 @@ function Login({ navigation }) {
     }
   }
 
-  function signUp() {
-    //   1. Is Form Valid
+  const signUp = () => {
+    if (!login) {
+      setShowNameError(true)
+    }
     setErrors(validateLogin(email, password))
-    // 1.1 If it's not return
-
-    // 2 If it is valid, make call to firebase
-
-    // 2.1 Is this valid with firebase? (Meets password criteria, email doesn't exist) return if not
-
-    // 3 - You're logged in - navigate to whatever
     authenticateUser()
+  }
+
+  const toggleSignUpLogin = () => {
+    setLogin((prevLogin) => !prevLogin)
+    setFirebaseError(null)
+    setErrors({})
+    setShowNameError(false)
   }
 
   return (
@@ -75,6 +76,9 @@ function Login({ navigation }) {
               mode='outlined'
               onChangeText={setState('name')}
             />
+            {showNameError && !name ? (
+              <ErrorText>{'Enter Name'}</ErrorText>
+            ) : null}
           </View>
         )}
         <View style={styles.inputView}>
@@ -100,13 +104,15 @@ function Login({ navigation }) {
             secureTextEntry={true}
           />
           {errors.password && <ErrorText>{errors.password}</ErrorText>}
-          {firebaseError && <ErrorText>{firebaseError}</ErrorText>}
+          {!errors.password && firebaseError && (
+            <ErrorText>{firebaseError}</ErrorText>
+          )}
         </View>
         <View style={styles.buttonView}>
           <Button onPress={() => signUp()}>
             {login ? 'Sign In' : 'Submit'}
           </Button>
-          <Button onPress={() => setLogin((prevLogin) => !prevLogin)}>
+          <Button onPress={() => toggleSignUpLogin()}>
             {login ? 'Need an account?' : 'Already Have an Account?'}
           </Button>
           <Button onPress={() => navigation.navigate('ForgotPassword')}>

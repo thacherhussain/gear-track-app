@@ -14,19 +14,31 @@
 - 🐞 user state error when logging out ✅
 - 🐞 "No Notes" flashes before your notes are shown ✅
 - Add Loader instead of "Loading" text ✅
-- all the error handling
+- all the error handling ✅
   - errors working on ForgotPassword screen, but not on Login screen
+  - Login
+  - Sign Up
+
 - refactor/clean up -- remove unused helper functions or refactor to use them
-
   - use absolute paths everywhere
+  - clean up styling
 
+- Update design - pick color palette and use RN paper with theme
 - convert to be a list of gear rather than a list of notes
   - change app name, variables, components
 - update/change over firebase to new gear app
 
+Next Features:
+- add gear details page to show more information on each item
+- add feature to include photo in gear details
+- add feature to scan barcodes and add gear details from there
+- add "Create a backpack" feature
+- add feature to track hikes with ability to tag location
+- Persist user as logged in after app is closed - https://docs.expo.io/versions/latest/sdk/securestore/
+
+App Development:
+- publish app
 - add dotenv to manage environment variables (react-native-dotenv)
-- clean up styling -- use RN paper with theme
 - convert to TS
 - update README/write up how-to
 - Add graphQL
-- Persist user as logged in after app is closed - https://docs.expo.io/versions/latest/sdk/securestore/

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
-import Header from '../components/Header'
-import firebaseInstance, { FirebaseContext } from '../firebase'
+
+import Header from '@src/components/Header'
+import firebaseInstance, { FirebaseContext } from '@src/firebase'
 
 function AddNotes({ navigation }) {
   const [noteTitle, setNoteTitle] = useState('')

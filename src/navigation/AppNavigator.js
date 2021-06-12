@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { FirebaseContext } from '../firebase'
-import AddNotes from '../screens/AddNotes'
-import ForgotPassword from '../screens/ForgotPassword'
-import Login from '../screens/Login'
-import ViewNotes from '../screens/ViewNotes'
+import { FirebaseContext } from '@src/firebase'
+import AddNotes from '@src/screens/AddNotes'
+import ForgotPassword from '@src/screens/ForgotPassword'
+import Login from '@src/screens/Login'
+import ViewNotes from '@src/screens/ViewNotes'
 
 const Stack = createStackNavigator()
 

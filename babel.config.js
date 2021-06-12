@@ -9,7 +9,9 @@ module.exports = function (api) {
           root: ['./'],
           extensions: ['.jsx', '.js'],
           alias: {
+            '@src/auth': './src/auth',
             '@src/components': './src/components',
+            '@src/firebase': './src/firebase',
             '@src/navigation': './src/navigation',
             '@src/screens': './src/screens',
           },

@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
 import { Text, FAB, List } from 'react-native-paper'
-import Header from '../components/Header'
-import { FirebaseContext } from '../firebase'
+
+import Header from '@src/components/Header'
+import { FirebaseContext } from '@src/firebase'
 
 function ViewNotes({ navigation }) {
   const [notes, setNotes] = useState([])
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   fab: {
-    backgroundColor: '#6200ed',
+    backgroundColor: '#1e6091',
     position: 'absolute',
     margin: 20,
     right: 0,

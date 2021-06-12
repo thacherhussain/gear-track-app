@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
-import Header from '../components/Header'
-import FirebaseContext from '../firebase/context'
-import { ErrorText, FeedbackText } from '../components'
+
+import { Header, ErrorText, FeedbackText } from '@src/components'
+import FirebaseContext from '@src/firebase/context'
 
 function ForgotPassword({ navigation }) {
   const [email, setEmail] = useState('')

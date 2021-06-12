@@ -1,21 +1,22 @@
 import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Appbar, Title, IconButton } from 'react-native-paper'
-import { FirebaseContext } from '../firebase'
 
-function Header({ navigation, titleText }) {
+import { FirebaseContext } from '@src/firebase'
+
+function Header({ titleText }) {
   const { user, firebase } = useContext(FirebaseContext)
 
   return (
     <Appbar.Header style={styles.headerContainer}>
       <View style={{ flex: 1 }}>
-        {user && (
+        {/* {user && (
           <IconButton
             icon='cog-outline'
             color={'white'}
             onPress={() => console.log('Settings')}
           />
-        )}
+        )} */}
       </View>
       <View style={styles.container}>
         <Title style={styles.title}>{titleText}</Title>
@@ -26,13 +27,6 @@ function Header({ navigation, titleText }) {
             icon='logout-variant'
             color={'white'}
             onPress={() => firebase.logout()}
-          />
-        )}
-        {!user && (
-          <IconButton
-            icon='login-variant'
-            color={'white'}
-            onPress={() => navigation.navigate('Login')}
           />
         )}
       </View>
