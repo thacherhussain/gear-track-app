@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { FirebaseContext } from '@src/firebase'
-import AddNotes from '@src/screens/AddNotes'
+import AddItem from '@src/screens/AddItem'
 import ForgotPassword from '@src/screens/ForgotPassword'
 import Login from '@src/screens/Login'
-import ViewNotes from '@src/screens/ViewNotes'
+import GearList from '@src/screens/GearList'
 
 const Stack = createStackNavigator()
 
@@ -15,7 +15,7 @@ function AppNavigator() {
 
   return (
     <Stack.Navigator
-      initialRouteName={user ? 'ViewNotes' : 'Login'}
+      initialRouteName={user ? 'GearList' : 'Login'}
       screenOptions={{ gestureEnabled: false, headerShown: false }}
     >
       {!isSignedIn ? (
@@ -25,8 +25,8 @@ function AppNavigator() {
         </>
       ) : (
         <>
-          <Stack.Screen name='AddNotes' component={AddNotes} />
-          <Stack.Screen name='ViewNotes' component={ViewNotes} />
+          <Stack.Screen name='AddItem' component={AddItem} />
+          <Stack.Screen name='GearList' component={GearList} />
         </>
       )}
     </Stack.Navigator>

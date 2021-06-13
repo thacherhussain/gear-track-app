@@ -30,14 +30,13 @@ function Login({ navigation }) {
   const [errors, setErrors] = useState({})
   const [firebaseError, setFirebaseError] = useState(null)
   const [showNameError, setShowNameError] = useState(false)
-  // console.log(name, password, email)
 
   async function authenticateUser() {
     try {
       login
         ? await firebaseInstance.login(email, password)
         : await firebaseInstance.register(name, email, password)
-      navigation.navigate('ViewNotes')
+      navigation.navigate('GearList')
     } catch (err) {
       console.log('Authentication Error', err)
       setFirebaseError(err.message)

@@ -5,53 +5,53 @@ import { Text, FAB, List } from 'react-native-paper'
 import Header from '@src/components/Header'
 import { FirebaseContext } from '@src/firebase'
 
-function ViewNotes({ navigation }) {
-  const [notes, setNotes] = useState([])
+function GearList({ navigation }) {
+  const [gear, setGear] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const { user, firebase } = useContext(FirebaseContext)
 
   useEffect(() => {
-    getNotes()
+    getGear()
   }, [])
 
-  async function getNotes() {
+  async function getGear() {
     setIsLoading(true)
     const doc = await firebase.db.collection('main').doc(user.uid).get()
-    const notesRef = await doc.ref.collection('notes').get()
+    const gearRef = await doc.ref.collection('gear').get()
 
-    const noteList = []
+    const gearList = []
 
-    notesRef.forEach((note) => {
-      const data = note.data()
-      noteList.push({
+    gearRef.forEach((item) => {
+      const data = item.data()
+      gearList.push({
         ...data,
-        id: note.id,
+        id: item.id,
       })
     })
-    setNotes(noteList)
+    setGear(gearList)
     setIsLoading(false)
   }
 
   return (
     <>
-      <Header titleText={'Notes App'} />
+      <Header titleText={'Gear App'} />
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />
         </View>
       ) : (
         <View style={styles.container}>
-          {notes.length === 0 ? (
+          {gear.length === 0 ? (
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>You do not have any notes</Text>
+              <Text style={styles.title}>You do not have any gear</Text>
             </View>
           ) : (
             <FlatList
-              data={notes}
+              data={gear}
               renderItem={({ item }) => (
                 <List.Item
-                  title={item.noteTitle}
-                  description={item.noteValue}
+                  title={item.itemTitle}
+                  description={item.itemDescription}
                   descriptionNumberOfLines={1}
                   titleStyle={styles.listTitle}
                 />
@@ -63,8 +63,8 @@ function ViewNotes({ navigation }) {
             style={styles.fab}
             small
             icon='plus'
-            label='Add new note'
-            onPress={() => navigation.navigate('AddNotes')}
+            label='Add new item'
+            onPress={() => navigation.navigate('AddItem')}
           />
         </View>
       )}
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ViewNotes
+export default GearList

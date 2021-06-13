@@ -5,43 +5,43 @@ import { Button, TextInput } from 'react-native-paper'
 import Header from '@src/components/Header'
 import firebaseInstance, { FirebaseContext } from '@src/firebase'
 
-function AddNotes({ navigation }) {
-  const [noteTitle, setNoteTitle] = useState('')
-  const [noteValue, setNoteValue] = useState('')
+function AddItems({ navigation }) {
+  const [itemName, setItemName] = useState('')
+  const [itemDescription, setItemDescription] = useState('')
   const { user } = useContext(FirebaseContext)
   const userId = user.uid
-  function handleAddNote() {
+  function handleItem() {
     if (!user) {
       navigation.goBack()
     } else {
-      const newNote = {
-        noteTitle,
-        noteValue,
+      const newItem = {
+        itemName,
+        itemDescription,
       }
       firebaseInstance.db
         .collection('main')
         .doc(userId)
-        .collection('notes')
-        .add(newNote)
-      navigation.navigate('ViewNotes')
+        .collection('gear')
+        .add(newItem)
+      navigation.navigate('GearList')
     }
   }
 
   return (
     <>
-      <Header titleText={'Add a new note'} />
+      <Header titleText={'Add a new item'} />
       <View style={styles.container}>
         <TextInput
-          label='Add Title Here'
-          value={noteTitle}
+          label='Item Name'
+          value={itemName}
           mode='outlined'
-          onChangeText={setNoteTitle}
+          onChangeText={setItemName}
           style={styles.title}
         />
         <TextInput
-          label='Add Note Here'
-          value={noteValue}
-          onChangeText={setNoteValue}
+          label='Item Description'
+          value={itemDescription}
+          onChangeText={setItemDescription}
           mode='flat'
           multiline={true}
           style={styles.text}
@@ -50,14 +50,14 @@ function AddNotes({ navigation }) {
           blurOnSubmit={true}
         />
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Button onPress={() => navigation.navigate('ViewNotes')}>
+          <Button onPress={() => navigation.navigate('GearList')}>
             Cancel
           </Button>
           <Button
-            disabled={noteTitle == '' ? true : false}
-            onPress={() => handleAddNote()}
+            disabled={itemName == '' ? true : false}
+            onPress={() => handleItem()}
           >
-            Add Note
+            Add Item
           </Button>
         </View>
       </View>
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AddNotes
+export default AddItems
