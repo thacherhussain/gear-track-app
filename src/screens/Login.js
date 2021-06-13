@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
+import i18n from '../localization/i18n'
 import validateLogin from '@src/auth/validateLogin'
 import { Header, ErrorText } from '@src/components'
 import firebaseInstance from '@src/firebase'
@@ -61,29 +62,29 @@ function Login({ navigation }) {
   return (
     <>
       {login ? (
-        <Header titleText={'Log In'} navigation={navigation} />
+        <Header titleText={i18n.t('Login')} navigation={navigation} />
       ) : (
-        <Header titleText={'Create Account'} />
+        <Header titleText={i18n.t('CreateAccount')} />
       )}
       <View style={styles.container}>
         {!login && (
           <View style={styles.inputView}>
             <TextInput
               style={styles.textInput}
-              label='Name'
+              label={i18n.t('Name')}
               value={name}
               mode='outlined'
               onChangeText={setState('name')}
             />
             {showNameError && !name ? (
-              <ErrorText>{'Enter Name'}</ErrorText>
+              <ErrorText>{i18n.t('Enter Name')}</ErrorText>
             ) : null}
           </View>
         )}
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
-            label='Email'
+            label={i18n.t('Email')}
             value={email}
             mode='outlined'
             onChangeText={setState('email')}
@@ -95,7 +96,7 @@ function Login({ navigation }) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
-            label='Password'
+            label={i18n.t('Password')}
             value={password}
             mode='outlined'
             onChangeText={setState('password')}
@@ -109,13 +110,13 @@ function Login({ navigation }) {
         </View>
         <View style={styles.buttonView}>
           <Button onPress={() => signUp()}>
-            {login ? 'Sign In' : 'Submit'}
+            {login ? i18n.t('SignIn') : i18n.t('Submit')}
           </Button>
           <Button onPress={() => toggleSignUpLogin()}>
-            {login ? 'Need an account?' : 'Already Have an Account?'}
+            {login ? i18n.t('NeedAnAccount') : i18n.t('AlreadyHaveAnAccount')}
           </Button>
           <Button onPress={() => navigation.navigate('ForgotPassword')}>
-            Forgot Password
+            {i18n.t('ForgotPassword')}
           </Button>
         </View>
       </View>

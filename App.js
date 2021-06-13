@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+
 import useAuth from '@src/auth/useAuth'
 import firebase, { FirebaseContext } from '@src/firebase'
 import AppNavigator from '@src/navigation/AppNavigator'

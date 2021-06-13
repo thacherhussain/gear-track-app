@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
+import i18n from '../localization/i18n'
 import { Header, ErrorText, FeedbackText } from '@src/components'
 import FirebaseContext from '@src/firebase/context'
 
@@ -25,10 +26,10 @@ function ForgotPassword({ navigation }) {
 
   return (
     <>
-      <Header titleText={'Forgot Password'} />
+      <Header titleText={i18n.t('ForgotPassword')} />
       <View style={styles.container}>
         <TextInput
-          label='Email'
+          label={i18n.t('Email')}
           value={email}
           mode='outlined'
           onChangeText={setEmail}
@@ -36,10 +37,12 @@ function ForgotPassword({ navigation }) {
           style={styles.title}
         />
 
-        <Button onPress={() => handleResetPassword()}>Reset Password</Button>
-        <Button onPress={() => navigation.goBack()}>Cancel</Button>
+        <Button onPress={() => handleResetPassword()}>
+          {i18n.t('ResetPassword')}
+        </Button>
+        <Button onPress={() => navigation.goBack()}>{i18n.t('Cancel')}</Button>
         {isPasswordReset && (
-          <FeedbackText text={'Check your email to reset password'} />
+          <FeedbackText text={i18n.t('CheckYourEmailToResetPassword')} />
         )}
         {passwordResetError && <ErrorText errorText={passwordResetError} />}
       </View>

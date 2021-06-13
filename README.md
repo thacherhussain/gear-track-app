@@ -22,10 +22,10 @@
   - use absolute paths everywhere
   - clean up styling
 - Update design - pick color palette and use RN paper with theme ✅
-
-- convert to be a list of gear rather than a list of notes
+- convert to be a list of gear rather than a list of notes ✅
   - change app name, variables, components
-- update/change over firebase to new gear app
+
+- refactor firebase 
 
 Next Features:
 - add gear details page to show more information on each item

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
 import { Text, FAB, List } from 'react-native-paper'
 
+import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
 import { FirebaseContext } from '@src/firebase'
 
@@ -34,7 +35,7 @@ function GearList({ navigation }) {
 
   return (
     <>
-      <Header titleText={'Gear App'} />
+      <Header titleText={i18n.t('GearApp')} />
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />
@@ -43,7 +44,7 @@ function GearList({ navigation }) {
         <View style={styles.container}>
           {gear.length === 0 ? (
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>You do not have any gear</Text>
+              <Text style={styles.title}>{i18n.t('NoGear')}</Text>
             </View>
           ) : (
             <FlatList
@@ -63,7 +64,7 @@ function GearList({ navigation }) {
             style={styles.fab}
             small
             icon='plus'
-            label='Add new item'
+            label={i18n.t('AddNewItem')}
             onPress={() => navigation.navigate('AddItem')}
           />
         </View>

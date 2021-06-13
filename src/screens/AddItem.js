@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 
+import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
 import firebaseInstance, { FirebaseContext } from '@src/firebase'
 
@@ -29,17 +30,17 @@ function AddItems({ navigation }) {
 
   return (
     <>
-      <Header titleText={'Add a new item'} />
+      <Header titleText={i18n.t('AddANewItem')} />
       <View style={styles.container}>
         <TextInput
-          label='Item Name'
+          label={i18n.t('ItemName')}
           value={itemName}
           mode='outlined'
           onChangeText={setItemName}
           style={styles.title}
         />
         <TextInput
-          label='Item Description'
+          label={i18n.t('ItemDescription')}
           value={itemDescription}
           onChangeText={setItemDescription}
           mode='flat'
@@ -51,13 +52,13 @@ function AddItems({ navigation }) {
         />
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Button onPress={() => navigation.navigate('GearList')}>
-            Cancel
+            {i18n.t('Cancel')}
           </Button>
           <Button
             disabled={itemName == '' ? true : false}
             onPress={() => handleItem()}
           >
-            Add Item
+            {i18n.t('AddItem')}
           </Button>
         </View>
       </View>
