@@ -5,3 +5,4 @@ yarn.lock
 jest.config.json
 README.md
 src/localization/*
+TaskTracking.md
