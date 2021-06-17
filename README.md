@@ -1,6 +1,10 @@
 # Gear Track App
 App to track gear for hiking and climbing 
 
+## General
+This is a react native application based on expo.
+## Background
+
 ## Product Spec
 
 ## Features
