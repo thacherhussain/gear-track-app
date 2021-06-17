@@ -31,6 +31,7 @@ App to track gear for hiking and climbing
 ### Active Tasks (Before Firebase --> AsyncStorage)
 - refactor firebase config
 - convert to TS
+- if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items
 - add more fields for gear details
 - add gear details page to show more information on each item
 - UI updates
