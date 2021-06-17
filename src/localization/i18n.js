@@ -1,6 +1,6 @@
 import * as Localization from 'expo-localization'
 import i18n from 'i18n-js'
-import en from '../localization/en.json'
+import en from './en.json'
 
 // Set the locale once at the beginning of your app.
 i18n.locale = Localization.locale

@@ -14,6 +14,7 @@ module.exports = function (api) {
             '@src/firebase': './src/firebase',
             '@src/navigation': './src/navigation',
             '@src/screens': './src/screens',
+            '@src/localization': './src/localization',
           },
         },
       ],
