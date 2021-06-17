@@ -2,7 +2,18 @@
 App to track gear for hiking and climbing 
 
 ## General
-This is a react native application based on expo.
+This is a expo react native application.
+
+## How to run locally
+If you don't already have the expo cli installed run `npm install --global expo-cli` then git clone and start up the app with the commands below
+
+```
+git clone https://github.com/thacherhussain/notes-app.git
+cd notes-app
+expo start
+
+```
+
 ## Background
 
 ## Product Spec
@@ -22,6 +33,5 @@ This is a react native application based on expo.
 - husky
 - module-resover
 
-## How to run locally
 
 ### Available Scripts
