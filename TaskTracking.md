@@ -27,13 +27,14 @@ App to track gear for hiking and climbing
 - convert to be a list of gear rather than a list of notes ✅
   - change app name, variables, components
 - add translation ✅
+- refactor firebase config ✅
+- convert to TS ✅
 
 ### Active Tasks (Before Firebase --> AsyncStorage)
-- refactor firebase config ✅
-- convert to TS
-- if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items
-- add more fields for gear details
 - add gear details page to show more information on each item
+- add more fields for gear details
+- add drawer nav side menu
+- if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items
 - UI updates
 - use new firebase project (does new app have new config variables? or does it need to be an entirely new project?) to make sure that config isn't accidentally pushed (previous commits might not have had the file in .gitignore)
 - remove unused libraries: axios

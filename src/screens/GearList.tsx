@@ -45,12 +45,14 @@ const GearList: FC<GearListProps> = (props) => {
     })
     setGear(gearList)
     setIsLoading(false)
+    console.log(gearList)
+    let obj = gearList.find((i) => i.id === 'qBDytAdSHSaZK4Kkgpyb')
+    console.log(`This one: ${JSON.stringify(obj)}`)
   }
 
   return (
     <>
       <Header titleText={i18n.t('GearApp')} />
-      {user ? <Text>{user.displayName}</Text> : undefined}
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />
@@ -72,8 +74,13 @@ const GearList: FC<GearListProps> = (props) => {
                     descriptionNumberOfLines={1}
                     titleStyle={styles.listTitle}
                     right={(props) => (
-                      <Pressable onPress={() => console.log(item.itemName)}>
-                        <List.Icon {...props} icon='plus-box' />
+                      <Pressable
+                        onPress={() =>
+                          navigation.navigate('GearDetail', { itemId: item.id })
+                        }
+                        // onPress={() => console.log(item.id)}
+                      >
+                        <List.Icon {...props} icon='chevron-right' />
                       </Pressable>
                     )}
                   />

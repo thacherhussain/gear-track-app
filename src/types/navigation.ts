@@ -4,4 +4,7 @@ export type RootStackParamList = {
   AddItem: undefined
   GearList: undefined
   Backpack: undefined
+  GearDetail: {
+    itemId: any
+  }
 }

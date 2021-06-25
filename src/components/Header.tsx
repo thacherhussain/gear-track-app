@@ -26,9 +26,9 @@ const Header: FC<HeaderProps> = (props) => {
       <View style={{ flex: 1 }}>
         {/* {user && (
           <IconButton
-            icon='cog-outline'
+            icon='menu'
             color={'white'}
-            onPress={() => console.log('Settings')}
+            onPress={() => console.log('Menu')}
           />
         )} */}
       </View>
