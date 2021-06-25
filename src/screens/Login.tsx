@@ -1,23 +1,33 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
 import validateLogin from '../utils/validateLogin'
 import { Header, ErrorText } from '@src/components'
 import { loginWithEmail, registerWithEmail } from '../firebase/firebase'
+import { RootStackParamList } from '@src/types'
 
-const INITIAL_STATE = {
+type State = {
+  name: string
+  email: string
+  password: string
+}
+
+const INITIAL_STATE: State = {
   name: '',
   email: '',
   password: '',
 }
 
-function handleChange(initialState) {
+function handleChange(initialState: State) {
   const [values, setValues] = useState(initialState)
 
-  const setState = (key) => (value) =>
-    setValues((prev) => ({ ...prev, [key]: value }))
+  const setState =
+    <Key extends keyof State, Value extends State[Key]>(key: Key) =>
+    (value: Value) =>
+      setValues((prev) => ({ ...prev, [key]: value }))
 
   return {
     ...values,
@@ -25,10 +35,15 @@ function handleChange(initialState) {
   }
 }
 
-function Login({ navigation }) {
+type Props = {
+  navigation: StackNavigationProp<RootStackParamList, 'Login'>
+}
+
+const Login: FC<Props> = (props) => {
+  const { navigation } = props
   const { name, password, email, setState } = handleChange(INITIAL_STATE)
   const [login, setLogin] = useState(true)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<Partial<State>>({})
   const [firebaseError, setFirebaseError] = useState(null)
   const [showNameError, setShowNameError] = useState(false)
 
@@ -61,11 +76,7 @@ function Login({ navigation }) {
 
   return (
     <>
-      {login ? (
-        <Header titleText={i18n.t('Login')} navigation={navigation} />
-      ) : (
-        <Header titleText={i18n.t('CreateAccount')} />
-      )}
+      <Header titleText={login ? i18n.t('Login') : i18n.t('CreateAccount')} />
       <View style={styles.container}>
         {!login && (
           <View style={styles.inputView}>

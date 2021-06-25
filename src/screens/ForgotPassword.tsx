@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
 import i18n from '../localization/i18n'
 import { Header, ErrorText, FeedbackText } from '@src/components'
 import { passwordReset } from '../firebase/firebase'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from '@src/types'
 
-function ForgotPassword({ navigation }) {
-  const [email, setEmail] = useState('')
-  const [isPasswordReset, setIsPasswordReset] = useState(false)
-  const [passwordResetError, setPasswordResetError] = useState(null)
+type ForgotPasswordProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'ForgotPassword'>
+}
+
+const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
+  const { navigation } = props
+  const [email, setEmail] = useState<string>('')
+  const [isPasswordReset, setIsPasswordReset] = useState<boolean>(false)
+  const [passwordResetError, setPasswordResetError] = useState<null | string>(
+    null
+  )
 
   const handleResetPassword = async () => {
     try {
@@ -43,7 +52,7 @@ function ForgotPassword({ navigation }) {
         {isPasswordReset && (
           <FeedbackText text={i18n.t('CheckYourEmailToResetPassword')} />
         )}
-        {passwordResetError && <ErrorText errorText={passwordResetError} />}
+        {passwordResetError && <ErrorText>{passwordResetError}</ErrorText>}
       </View>
     </>
   )

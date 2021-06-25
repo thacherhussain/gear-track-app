@@ -1,11 +1,16 @@
-import React, { useContext } from 'react'
+import React, { FC, useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Appbar, Title, IconButton } from 'react-native-paper'
 
 import { AppContext } from '../navigation/AppProvider'
 import { logout } from '../firebase/firebase'
 
-function Header({ titleText }) {
+type HeaderProps = {
+  titleText: string
+}
+
+const Header: FC<HeaderProps> = (props) => {
+  const { titleText } = props
   const { user } = useContext(AppContext)
 
   async function handleSignOut() {
@@ -17,7 +22,7 @@ function Header({ titleText }) {
   }
 
   return (
-    <Appbar.Header style={styles.headerContainer}>
+    <Appbar.Header>
       <View style={{ flex: 1 }}>
         {/* {user && (
           <IconButton

@@ -1,7 +1,12 @@
-import React from 'react'
+import React, {FC} from 'react'
 import { StyleSheet, Text } from 'react-native'
 
-const FeedbackText = ({ text }) => {
+type FeedbackTextProps = {
+  text: string
+}
+
+const FeedbackText: FC<FeedbackTextProps> = (props) => {
+  const {text} = props
   return <Text style={styles.error}>{text}</Text>
 }
 

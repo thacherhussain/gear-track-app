@@ -1,15 +1,22 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { FC, useState, useContext, useEffect } from 'react'
 import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
 import { Text, FAB, List } from 'react-native-paper'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
+import { RootStackParamList } from '@src/types'
 
-function GearList({ navigation }) {
-  const [gear, setGear] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+type GearListProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'GearList'>
+}
+
+const GearList: FC<GearListProps> = (props) => {
+  const { navigation } = props
+  const [gear, setGear] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { user } = useContext(AppContext)
 
   useEffect(() => {
@@ -21,9 +28,9 @@ function GearList({ navigation }) {
     const doc = await db.collection('main').doc(user.uid).get()
     const gearRef = await doc.ref.collection('gear').get()
 
-    const gearList = []
+    const gearList: any[] = []
 
-    gearRef.forEach((item) => {
+    gearRef.forEach((item: any) => {
       const data = item.data()
       gearList.push({
         ...data,

@@ -1,13 +1,20 @@
-import React, { useState, useContext } from 'react'
+import React, { FC, useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
+import { RootStackParamList } from '@src/types'
 
-function AddItems({ navigation }) {
+type AddItemProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'AddItem'>
+}
+
+const AddItems: FC<AddItemProps> = (props) => {
+  const { navigation } = props
   const [itemName, setItemName] = useState('')
   const [itemDescription, setItemDescription] = useState('')
   const { user } = useContext(AppContext)
