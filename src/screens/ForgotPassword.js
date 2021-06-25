@@ -1,20 +1,19 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
 import i18n from '../localization/i18n'
 import { Header, ErrorText, FeedbackText } from '@src/components'
-import FirebaseContext from '@src/firebase/context'
+import { passwordReset } from '../firebase/firebase'
 
 function ForgotPassword({ navigation }) {
   const [email, setEmail] = useState('')
-  const { firebase } = useContext(FirebaseContext)
   const [isPasswordReset, setIsPasswordReset] = useState(false)
   const [passwordResetError, setPasswordResetError] = useState(null)
 
   const handleResetPassword = async () => {
     try {
-      await firebase.resetPassword(email)
+      await passwordReset(email)
       setIsPasswordReset(true)
       setPasswordResetError(null)
     } catch (err) {

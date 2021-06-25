@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
 import i18n from '../localization/i18n'
-import validateLogin from '@src/auth/validateLogin'
+import validateLogin from '../utils/validateLogin'
 import { Header, ErrorText } from '@src/components'
-import firebaseInstance from '@src/firebase'
+import { loginWithEmail, registerWithEmail } from '../firebase/firebase'
 
 const INITIAL_STATE = {
   name: '',
@@ -35,8 +35,8 @@ function Login({ navigation }) {
   async function authenticateUser() {
     try {
       login
-        ? await firebaseInstance.login(email, password)
-        : await firebaseInstance.register(name, email, password)
+        ? await loginWithEmail(email, password)
+        : await registerWithEmail(name, email, password)
       navigation.navigate('GearList')
     } catch (err) {
       console.log('Authentication Error', err)

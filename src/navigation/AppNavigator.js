@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-
-import { FirebaseContext } from '@src/firebase'
+import { AppContext } from './AppProvider'
+import { auth } from '../firebase/firebase'
 import AddItem from '@src/screens/AddItem'
 import ForgotPassword from '@src/screens/ForgotPassword'
 import Login from '@src/screens/Login'
@@ -10,7 +10,20 @@ import GearList from '@src/screens/GearList'
 const Stack = createStackNavigator()
 
 function AppNavigator() {
-  const { user } = useContext(FirebaseContext)
+  const { user, setUser } = useContext(AppContext)
+
+  useEffect(() => {
+    const unsubscribeAuth = auth.onAuthStateChanged(async (authUser) => {
+      try {
+        await (authUser ? setUser(authUser) : setUser(null))
+      } catch (error) {
+        console.log(error)
+      }
+    })
+
+    return unsubscribeAuth
+  }, [])
+
   const isSignedIn = user ? true : false
 
   return (

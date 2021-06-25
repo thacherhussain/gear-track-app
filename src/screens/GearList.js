@@ -4,12 +4,13 @@ import { Text, FAB, List } from 'react-native-paper'
 
 import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
-import { FirebaseContext } from '@src/firebase'
+import { AppContext } from '../navigation/AppProvider'
+import { db } from '../firebase/firebase'
 
 function GearList({ navigation }) {
   const [gear, setGear] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const { user, firebase } = useContext(FirebaseContext)
+  const { user } = useContext(AppContext)
 
   useEffect(() => {
     getGear()
@@ -17,7 +18,7 @@ function GearList({ navigation }) {
 
   async function getGear() {
     setIsLoading(true)
-    const doc = await firebase.db.collection('main').doc(user.uid).get()
+    const doc = await db.collection('main').doc(user.uid).get()
     const gearRef = await doc.ref.collection('gear').get()
 
     const gearList = []
@@ -36,6 +37,7 @@ function GearList({ navigation }) {
   return (
     <>
       <Header titleText={i18n.t('GearApp')} />
+      {user ? <Text>{user.displayName}</Text> : undefined}
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />
@@ -51,7 +53,7 @@ function GearList({ navigation }) {
               data={gear}
               renderItem={({ item }) => (
                 <List.Item
-                  title={item.itemTitle}
+                  title={item.itemName}
                   description={item.itemDescription}
                   descriptionNumberOfLines={1}
                   titleStyle={styles.listTitle}

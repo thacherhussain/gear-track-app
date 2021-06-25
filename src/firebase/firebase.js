@@ -1,38 +1,27 @@
-import firebase from 'firebase/app'
+import * as firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-import firebaseConfig from './config'
+import firebaseConfig from './firebaseConfig'
 
-class Firebase {
-  constructor() {
-    firebase.initializeApp(firebaseConfig)
-    this.auth = firebase.auth()
-    this.db = firebase.firestore()
-  }
-
-  async register(name, email, password) {
-    const newUser = await this.auth.createUserWithEmailAndPassword(
-      email,
-      password
-    )
-    return await newUser.user.updateProfile({
-      displayName: name,
-    })
-  }
-
-  async login(email, password) {
-    return await this.auth.signInWithEmailAndPassword(email, password)
-  }
-
-  async logout() {
-    await this.auth.signOut()
-  }
-
-  async resetPassword(email) {
-    await this.auth.sendPasswordResetEmail(email)
-  }
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
 }
 
-const firebaseInstance = new Firebase()
-export default firebaseInstance
+export const auth = firebase.auth()
+
+export const db = firebase.firestore()
+
+export const loginWithEmail = (email, password) =>
+  auth.signInWithEmailAndPassword(email, password)
+
+export const registerWithEmail = async (name, email, password) => {
+  const newUser = await auth.createUserWithEmailAndPassword(email, password)
+  return await newUser.user.updateProfile({
+    displayName: name,
+  })
+}
+
+export const logout = () => auth.signOut()
+
+export const passwordReset = (email) => auth.sendPasswordResetEmail(email)

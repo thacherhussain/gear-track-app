@@ -11,7 +11,6 @@ module.exports = function (api) {
           alias: {
             '@src/auth': './src/auth',
             '@src/components': './src/components',
-            '@src/firebase': './src/firebase',
             '@src/navigation': './src/navigation',
             '@src/screens': './src/screens',
             '@src/localization': './src/localization',

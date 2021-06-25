@@ -1,10 +1,8 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
-
-import useAuth from '@src/auth/useAuth'
-import firebase, { FirebaseContext } from '@src/firebase'
 import AppNavigator from '@src/navigation/AppNavigator'
+import { AppProvider } from './src/navigation/AppProvider'
 
 const theme = {
   ...DefaultTheme,
@@ -16,14 +14,13 @@ const theme = {
 }
 
 export default function App() {
-  const user = useAuth()
   return (
-    <FirebaseContext.Provider value={{ user, firebase }}>
+    <AppProvider>
       <NavigationContainer>
         <PaperProvider theme={theme}>
           <AppNavigator />
         </PaperProvider>
       </NavigationContainer>
-    </FirebaseContext.Provider>
+    </AppProvider>
   )
 }

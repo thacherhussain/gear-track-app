@@ -2,10 +2,19 @@ import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Appbar, Title, IconButton } from 'react-native-paper'
 
-import { FirebaseContext } from '@src/firebase'
+import { AppContext } from '../navigation/AppProvider'
+import { logout } from '../firebase/firebase'
 
 function Header({ titleText }) {
-  const { user, firebase } = useContext(FirebaseContext)
+  const { user } = useContext(AppContext)
+
+  async function handleSignOut() {
+    try {
+      await logout()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Appbar.Header style={styles.headerContainer}>
@@ -26,7 +35,7 @@ function Header({ titleText }) {
           <IconButton
             icon='logout-variant'
             color={'white'}
-            onPress={() => firebase.logout()}
+            onPress={handleSignOut}
           />
         )}
       </View>

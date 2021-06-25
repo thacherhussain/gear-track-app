@@ -4,12 +4,13 @@ import { Button, TextInput } from 'react-native-paper'
 
 import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
-import firebaseInstance, { FirebaseContext } from '@src/firebase'
+import { AppContext } from '../navigation/AppProvider'
+import { db } from '../firebase/firebase'
 
 function AddItems({ navigation }) {
   const [itemName, setItemName] = useState('')
   const [itemDescription, setItemDescription] = useState('')
-  const { user } = useContext(FirebaseContext)
+  const { user } = useContext(AppContext)
   const userId = user.uid
   function handleItem() {
     if (!user) {
@@ -19,11 +20,7 @@ function AddItems({ navigation }) {
         itemName,
         itemDescription,
       }
-      firebaseInstance.db
-        .collection('main')
-        .doc(userId)
-        .collection('gear')
-        .add(newItem)
+      db.collection('main').doc(userId).collection('gear').add(newItem)
       navigation.navigate('GearList')
     }
   }
