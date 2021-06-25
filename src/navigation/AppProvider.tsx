@@ -1,10 +1,5 @@
 import React, { FC, ReactNode, useState, createContext } from 'react'
 
-export interface AppContextInterface {
-  user: any
-  setUser: any
-}
-
 export const AppContext = createContext<any>(null)
 
 type AppProviderProps = {

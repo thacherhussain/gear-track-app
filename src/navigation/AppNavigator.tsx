@@ -6,6 +6,7 @@ import AddItem from '@src/screens/AddItem'
 import ForgotPassword from '@src/screens/ForgotPassword'
 import Login from '@src/screens/Login'
 import GearList from '@src/screens/GearList'
+import Backpack from '@src/screens/Backpack'
 
 const Stack = createStackNavigator()
 
@@ -40,6 +41,7 @@ function AppNavigator() {
         <>
           <Stack.Screen name='AddItem' component={AddItem} />
           <Stack.Screen name='GearList' component={GearList} />
+          <Stack.Screen name='Backpack' component={Backpack} />
         </>
       )}
     </Stack.Navigator>

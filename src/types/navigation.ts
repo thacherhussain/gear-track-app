@@ -3,4 +3,5 @@ export type RootStackParamList = {
   ForgotPassword: undefined
   AddItem: undefined
   GearList: undefined
+  Backpack: undefined
 }

@@ -1,12 +1,6 @@
 import React, { FC, useState, useContext, useEffect } from 'react'
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  ActivityIndicator,
-  Pressable,
-} from 'react-native'
-import { Text, FAB, List, Button } from 'react-native-paper'
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
+import { Text, FAB, List } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
@@ -15,11 +9,11 @@ import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 
-type GearListProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'GearList'>
+type BackpackProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'Backpack'>
 }
 
-const GearList: FC<GearListProps> = (props) => {
+const Backpack: FC<BackpackProps> = (props) => {
   const { navigation } = props
   const [gear, setGear] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -65,19 +59,12 @@ const GearList: FC<GearListProps> = (props) => {
             <FlatList
               data={gear}
               renderItem={({ item }) => (
-                <>
-                  <List.Item
-                    title={item.itemName}
-                    description={item.itemDescription}
-                    descriptionNumberOfLines={1}
-                    titleStyle={styles.listTitle}
-                    right={(props) => (
-                      <Pressable onPress={() => console.log(item.itemName)}>
-                        <List.Icon {...props} icon='plus-box' />
-                      </Pressable>
-                    )}
-                  />
-                </>
+                <List.Item
+                  title={item.itemName}
+                  description={item.itemDescription}
+                  descriptionNumberOfLines={1}
+                  titleStyle={styles.listTitle}
+                />
               )}
               keyExtractor={(item) => item.id.toString()}
             />
@@ -122,4 +109,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default GearList
+export default Backpack
