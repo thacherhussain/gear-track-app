@@ -19,10 +19,9 @@ type GearDetailProps = {
 
 const GearDetails: FC<GearDetailProps> = (props) => {
   const { navigation, route } = props
-  const { itemId } = route.params
-  const [itemName, setItemName] = useState('')
-  const [itemDescription, setItemDescription] = useState('')
+  const { singleItem } = route.params
 
+  const { itemName, itemDescription } = singleItem
   const [editing, setEditing] = useState<boolean>(false)
 
   const { user } = useContext(AppContext)
@@ -40,23 +39,24 @@ const GearDetails: FC<GearDetailProps> = (props) => {
     }
   }
 
-  async function getItem() {
-    //if exists
-    const doc = await db.collection('main').doc(user.uid).get()
-    const gearRef = await doc.ref.collection('gear').doc(itemId).get()
-    console.log(gearRef)
-  }
+  // handleEditItem
 
   return (
     <>
       <Header titleText={'Gear Details'} />
-      {editing ? (
+      {!editing ? (
         <View style={styles.container}>
-          <Text>List of Gear Details</Text>
+          <Text>Item Name: {itemName}</Text>
+          <Text>Item Description: {itemDescription}</Text>
+          <Button onPress={() => setEditing(!editing)}>Edit</Button>
+          <Button onPress={() => navigation.navigate('GearList')}>
+            Cancel
+          </Button>
         </View>
       ) : (
         <View style={styles.container}>
-          <TextInput
+          <Text style={styles.title}>Edit Text</Text>
+          {/* <TextInput
             label={i18n.t('ItemName')}
             value={itemName}
             mode='outlined'
@@ -84,16 +84,10 @@ const GearDetails: FC<GearDetailProps> = (props) => {
             >
               Save
             </Button>
-          </View>
+          </View> */}
+          <Button onPress={() => setEditing(!editing)}>Save</Button>
         </View>
       )}
-      <Button onPress={() => navigation.navigate('GearList')}>
-        To Gear List
-      </Button>
-      <Button onPress={() => getItem()}>GearRef</Button>
-      <View>
-        <Button onPress={() => setEditing(true)}>Edit</Button>
-      </View>
     </>
   )
 }

@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   Pressable,
 } from 'react-native'
-import { Text, FAB, List, Button } from 'react-native-paper'
+import { Text, FAB, List } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
@@ -45,9 +45,11 @@ const GearList: FC<GearListProps> = (props) => {
     })
     setGear(gearList)
     setIsLoading(false)
-    console.log(gearList)
-    let obj = gearList.find((i) => i.id === 'qBDytAdSHSaZK4Kkgpyb')
-    console.log(`This one: ${JSON.stringify(obj)}`)
+  }
+
+  const onPress = (item: any) => {
+    const singleItem = gear.find((i) => i.id === item.id)
+    navigation.navigate('GearDetail', { singleItem: singleItem })
   }
 
   return (
@@ -74,12 +76,7 @@ const GearList: FC<GearListProps> = (props) => {
                     descriptionNumberOfLines={1}
                     titleStyle={styles.listTitle}
                     right={(props) => (
-                      <Pressable
-                        onPress={() =>
-                          navigation.navigate('GearDetail', { itemId: item.id })
-                        }
-                        // onPress={() => console.log(item.id)}
-                      >
+                      <Pressable onPress={() => onPress(item)}>
                         <List.Icon {...props} icon='chevron-right' />
                       </Pressable>
                     )}
