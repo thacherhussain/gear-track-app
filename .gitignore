@@ -12,5 +12,5 @@ web-build/
 # macOS
 .DS_Store
 
-*/src/firebase/firebaseConfig.js
+/src/firebase/firebaseConfig.js
 TaskTracking.md
