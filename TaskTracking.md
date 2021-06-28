@@ -31,10 +31,17 @@ App to track gear for hiking and climbing
 - convert to TS ✅
 
 ### Active Tasks (Before Firebase --> AsyncStorage)
-- add gear details page to show more information on each item
+- add gear details page to show more information on each item ✅
+- finish up TS conversion
+- if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items ✅
+- add ability delete items ✅ 
+- list should reload after editing or deleting
 - add more fields for gear details
-- add drawer nav side menu
-- if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items
+  - company, color, size, weight, description
+- add ability to edit items
+- add drawer nav side menu - Gear List, Backpacks
+- add "Create a backpack" feature
+- add drag down to refresh
 - UI updates
 - use new firebase project (does new app have new config variables? or does it need to be an entirely new project?) to make sure that config isn't accidentally pushed (previous commits might not have had the file in .gitignore)
 - remove unused libraries: axios
@@ -42,7 +49,6 @@ App to track gear for hiking and climbing
 - update README/write up how-to
 
 #### Next Features:
-- add "Create a backpack" feature
 - add feature to include photo in gear details
 - add feature to scan barcodes and add gear details from there
 - add feature to track hikes with ability to tag location

@@ -29,7 +29,7 @@ const GearList: FC<GearListProps> = (props) => {
     getGear()
   }, [])
 
-  async function getGear() {
+  const getGear = async () => {
     setIsLoading(true)
     const doc = await db.collection('main').doc(user.uid).get()
     const gearRef = await doc.ref.collection('gear').get()

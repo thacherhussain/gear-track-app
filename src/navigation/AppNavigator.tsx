@@ -40,10 +40,10 @@ function AppNavigator() {
         </>
       ) : (
         <>
-          <Stack.Screen name='AddItem' component={AddItem} />
           <Stack.Screen name='GearList' component={GearList} />
-          <Stack.Screen name='Backpack' component={Backpack} />
           <Stack.Screen name='GearDetail' component={GearDetail} />
+          <Stack.Screen name='AddItem' component={AddItem} />
+          <Stack.Screen name='Backpack' component={Backpack} />
         </>
       )}
     </Stack.Navigator>

@@ -9,6 +9,7 @@ import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
+import { error } from '../style/colors'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>
 
@@ -21,7 +22,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
   const { navigation, route } = props
   const { singleItem } = route.params
 
-  const { itemName, itemDescription } = singleItem
+  const { itemName, itemDescription, id } = singleItem
   const [editing, setEditing] = useState<boolean>(false)
 
   const { user } = useContext(AppContext)
@@ -41,14 +42,32 @@ const GearDetails: FC<GearDetailProps> = (props) => {
 
   // handleEditItem
 
+  const handleDeleteItem = () => {
+    const item = db.collection('main').doc(userId).collection('gear').doc(id)
+
+    item
+      .delete()
+      .then(() => {
+        console.log('Document successfully deleted!')
+        navigation.navigate('GearList')
+      })
+      .catch((error) => {
+        console.error('Error removing document: ', error)
+      })
+  }
+
   return (
     <>
       <Header titleText={'Gear Details'} />
       {!editing ? (
         <View style={styles.container}>
+          <Text>Item Id: {id}</Text>
           <Text>Item Name: {itemName}</Text>
           <Text>Item Description: {itemDescription}</Text>
           <Button onPress={() => setEditing(!editing)}>Edit</Button>
+          <Button color={error} onPress={() => handleDeleteItem()}>
+            Delete
+          </Button>
           <Button onPress={() => navigation.navigate('GearList')}>
             Cancel
           </Button>
