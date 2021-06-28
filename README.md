@@ -33,3 +33,12 @@ expo start
 
 
 ### Available Scripts
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "format:check": "npx prettier --check \"**/*.{js,jsx,json}\"",
+    "format": "npx prettier --write \"**/*.{js,jsx,json}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "prepare": "husky install"
