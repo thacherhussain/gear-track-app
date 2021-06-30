@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Text, FAB, List } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useFocusEffect } from '@react-navigation/native'
 
 import i18n from '../localization/i18n'
 import Header from '@src/components/Header'
@@ -25,9 +26,11 @@ const GearList: FC<GearListProps> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { user } = useContext(AppContext)
 
-  useEffect(() => {
-    getGear()
-  }, [])
+  useFocusEffect(
+    React.useCallback(() => {
+      getGear()
+    }, [])
+  )
 
   const getGear = async () => {
     setIsLoading(true)
@@ -43,6 +46,10 @@ const GearList: FC<GearListProps> = (props) => {
         id: item.id,
       })
     })
+
+    // gearList.sort((a, b) => a.itemName - b.itemName)
+    gearList.sort((a, b) => (a.itemName > b.itemName ? 1 : -1))
+
     setGear(gearList)
     setIsLoading(false)
   }
