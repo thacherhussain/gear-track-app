@@ -32,7 +32,8 @@ App to track gear for hiking and climbing
 
 ### Active Tasks (Before Firebase --> AsyncStorage)
 - add gear details page to show more information on each item ✅
-- finish up TS conversion
+- finish up TS conversion ✅
+- update lint and husky to run ts and tsx file
 - if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items ✅
 - add ability delete items ✅ 
 - list should reload after editing or deleting ✅

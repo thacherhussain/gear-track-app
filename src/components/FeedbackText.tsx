@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 import { StyleSheet, Text } from 'react-native'
 
 type FeedbackTextProps = {
@@ -6,7 +6,7 @@ type FeedbackTextProps = {
 }
 
 const FeedbackText: FC<FeedbackTextProps> = (props) => {
-  const {text} = props
+  const { text } = props
   return <Text style={styles.error}>{text}</Text>
 }
 

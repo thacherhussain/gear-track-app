@@ -6,19 +6,22 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "format:check": "npx prettier --check \"**/*.{js,jsx,json}\"",
-    "format": "npx prettier --write \"**/*.{js,jsx,json}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "typecheck": "tsc",
+    "format:check": "npx prettier --check \"**/*.{js,jsx,json, ts, tsx}\"",
+    "format": "npx prettier --write \"**/*.{js,jsx,json, ts, tsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx, ts, tsx}\"",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx}": "eslint",
-    "**/*.{js,jsx,json}": "prettier --write"
+    "src/**/*.{js,jsx, ts, tsx}": "eslint",
+    "**/*.{js,jsx,json, ts, tsx}": "prettier --write"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "axios": "^0.21.1",
     "expo": "~41.0.1",
     "expo-localization": "~10.1.0",
