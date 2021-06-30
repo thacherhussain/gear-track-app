@@ -59,6 +59,33 @@ const GearList: FC<GearListProps> = (props) => {
     navigation.navigate('GearDetail', { singleItem: singleItem })
   }
 
+  const body =
+    gear.length === 0 ? (
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{i18n.t('NoGear')}</Text>
+      </View>
+    ) : (
+      <FlatList
+        data={gear}
+        renderItem={({ item }) => (
+          <>
+            <List.Item
+              title={item.itemName}
+              description={item.itemDescription}
+              descriptionNumberOfLines={1}
+              titleStyle={styles.listTitle}
+              right={(iconProps) => (
+                <Pressable onPress={() => onPress(item)}>
+                  <List.Icon {...iconProps} icon='chevron-right' />
+                </Pressable>
+              )}
+            />
+          </>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    )
+
   return (
     <>
       <Header titleText={i18n.t('GearApp')} />
@@ -68,31 +95,7 @@ const GearList: FC<GearListProps> = (props) => {
         </View>
       ) : (
         <View style={styles.container}>
-          {gear.length === 0 ? (
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{i18n.t('NoGear')}</Text>
-            </View>
-          ) : (
-            <FlatList
-              data={gear}
-              renderItem={({ item }) => (
-                <>
-                  <List.Item
-                    title={item.itemName}
-                    description={item.itemDescription}
-                    descriptionNumberOfLines={1}
-                    titleStyle={styles.listTitle}
-                    right={(props) => (
-                      <Pressable onPress={() => onPress(item)}>
-                        <List.Icon {...props} icon='chevron-right' />
-                      </Pressable>
-                    )}
-                  />
-                </>
-              )}
-              keyExtractor={(item) => item.id.toString()}
-            />
-          )}
+          {body}
           <FAB
             style={styles.fab}
             small

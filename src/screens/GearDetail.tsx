@@ -9,7 +9,7 @@ import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
-import { error } from '../style/colors'
+import { errorColor } from '../style/colors'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>
 
@@ -51,7 +51,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
         console.log('Document successfully deleted!')
         navigation.navigate('GearList')
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error('Error removing document: ', error)
       })
   }
@@ -65,7 +65,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
           <Text>Item Name: {itemName}</Text>
           <Text>Item Description: {itemDescription}</Text>
           <Button onPress={() => setEditing(!editing)}>Edit</Button>
-          <Button color={error} onPress={() => handleDeleteItem()}>
+          <Button color={errorColor} onPress={() => handleDeleteItem()}>
             Delete
           </Button>
           <Button onPress={() => navigation.navigate('GearList')}>

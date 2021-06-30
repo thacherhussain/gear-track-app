@@ -1,1 +1,1 @@
-export const error = 'red'
+export const errorColor = 'red'

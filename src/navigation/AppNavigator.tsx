@@ -15,7 +15,7 @@ function AppNavigator() {
   const { user, setUser } = useContext(AppContext)
 
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged(async (authUser) => {
+    const unsubscribeAuth = auth.onAuthStateChanged(async (authUser: any) => {
       try {
         await (authUser ? setUser(authUser) : setUser(null))
       } catch (error) {

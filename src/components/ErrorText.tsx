@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 import { StyleSheet, Text } from 'react-native'
 
-import { error } from '../style/colors'
+import { errorColor } from '../style/colors'
 
 type ErrorTextProps = {
   children: ReactNode
@@ -16,6 +16,6 @@ export default ErrorText
 
 const styles = StyleSheet.create({
   error: {
-    color: error,
+    color: errorColor,
   },
 })

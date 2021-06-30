@@ -1,5 +1,10 @@
-export default function validateLogin(email, password) {
-  let errors = {}
+export default function validateLogin(email: string, password: string) {
+  type State = {
+    email?: string
+    password?: string
+  }
+
+  let errors: State = {}
 
   // Email Errors
   if (!email) {
