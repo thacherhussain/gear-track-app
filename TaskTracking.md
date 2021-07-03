@@ -38,10 +38,13 @@ App to track gear for hiking and climbing
 - add ability delete items ✅ 
 - list should reload after editing or deleting ✅
 - sort list aphabetically by itemName ✅
+- add ability to edit items ✅
+
+- add drawer nav side menu - Gear List, Backpacks, Login/Logout
+- Add use react navigation header with nav theme (pull logout from custom header)
+
 - add more fields for gear details
   - company, color, size, weight, description
-- add ability to edit items
-- add drawer nav side menu - Gear List, Backpacks
 - add "Create a backpack" feature
 - add drag down to refresh
 - UI updates

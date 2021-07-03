@@ -9,7 +9,7 @@ import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { errorColor } from '../style/colors'
-import {BasicText, Header, TitleText} from '../components'
+import { Header, TitleText } from '../components'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>
 
@@ -25,20 +25,28 @@ const GearDetails: FC<GearDetailProps> = (props) => {
   const { itemName, itemDescription, id } = singleItem
 
   const [newItemName, setNewItemName] = useState<string>(itemName)
-  const [newItemDescription, setNewItemDescription] = useState<string>(itemDescription)
+  const [newItemDescription, setNewItemDescription] =
+    useState<string>(itemDescription)
   const [editing, setEditing] = useState<boolean>(false)
 
   const { user } = useContext(AppContext)
   const userId = user.uid
-  const firebaseItem = db.collection('main').doc(userId).collection('gear').doc(id)
-  
+  const firebaseItem = db
+    .collection('main')
+    .doc(userId)
+    .collection('gear')
+    .doc(id)
+
   const handleEditItem = () => {
-      firebaseItem.set({
+    firebaseItem
+      .set({
         itemName: newItemName,
         itemDescription: newItemDescription,
       })
       .then(() => {
         navigation.navigate('GearList')
+        // setEditing(false)
+        // if not rerouting to GearList, need to find a way to refresh the info back on the editing screen
       })
       .catch((error: any) => {
         console.error('Error editing document: ', error)
@@ -62,15 +70,27 @@ const GearDetails: FC<GearDetailProps> = (props) => {
       <Header titleText={'Gear Details'} />
       {!editing ? (
         <View style={styles.container}>
-          <Text  style={styles.title}>Item Name: {itemName}</Text>
-          <Text  style={styles.text}>Item Description: {itemDescription}</Text>
-          <Button onPress={() => setEditing(!editing)}>Edit</Button>
-          <Button color={errorColor} onPress={() => handleDeleteItem()}>
-            Delete
-          </Button>
-          <Button onPress={() => navigation.navigate('GearList')}>
-            Cancel
-          </Button>
+          <Text style={styles.title}>Item Name: {itemName}</Text>
+          <Text style={styles.text}>Item Description: {itemDescription}</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <Button onPress={() => setEditing(!editing)}>
+              {i18n.t('Edit')}
+            </Button>
+            <Button color={errorColor} onPress={() => handleDeleteItem()}>
+              {i18n.t('Delete')}
+            </Button>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 30,
+            }}
+          >
+            <Button onPress={() => navigation.navigate('GearList')}>
+              {i18n.t('BackToGearList')}
+            </Button>
+          </View>
         </View>
       ) : (
         <View style={styles.container}>
@@ -94,7 +114,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
             blurOnSubmit={true}
           />
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Button onPress={() => navigation.navigate('GearList')}>
+            <Button onPress={() => setEditing(false)}>
               {i18n.t('Cancel')}
             </Button>
             <Button
@@ -123,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   text: {
-    height: 50,
+    height: 300,
     fontSize: 16,
   },
 })

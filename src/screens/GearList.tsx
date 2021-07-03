@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect } from 'react'
+import React, { FC, useState, useContext } from 'react'
 import {
   StyleSheet,
   View,
@@ -46,9 +46,8 @@ const GearList: FC<GearListProps> = (props) => {
         id: item.id,
       })
     })
-console.log(gearList)
-    // gearList.sort((a, b) => a.itemName - b.itemName)
-    gearList.sort((a, b) => (a.itemName > b.itemName ? 1 : -1))
+
+    gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
 
     setGear(gearList)
     setIsLoading(false)
