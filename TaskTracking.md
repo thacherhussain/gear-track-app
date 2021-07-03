@@ -29,26 +29,27 @@ App to track gear for hiking and climbing
 - add translation ✅
 - refactor firebase config ✅
 - convert to TS ✅
-
-### Active Tasks (Before Firebase --> AsyncStorage)
+- use new firebase project (does new app have new config variables? or does it need to be an entirely new project?) to make sure that config isn't accidentally pushed (previous commits might not have had the file in .gitignore) ✅
 - add gear details page to show more information on each item ✅
 - finish up TS conversion ✅
-- update lint and husky to run ts and tsx file
+- update lint and husky to run ts and tsx file ✅
 - if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items ✅
 - add ability delete items ✅ 
 - list should reload after editing or deleting ✅
 - sort list aphabetically by itemName ✅
 - add ability to edit items ✅
 
+### Active Tasks (Before Firebase --> AsyncStorage)
 - add drawer nav side menu - Gear List, Backpacks, Login/Logout
+- use header button to operate toggle drawer
 - Add use react navigation header with nav theme (pull logout from custom header)
 
 - add more fields for gear details
-  - company, color, size, weight, description
+  - company, color, size, weight, description, quantity, model
 - add "Create a backpack" feature
 - add drag down to refresh
 - UI updates
-- use new firebase project (does new app have new config variables? or does it need to be an entirely new project?) to make sure that config isn't accidentally pushed (previous commits might not have had the file in .gitignore)
+
 - remove unused libraries: axios
 - push to github
 - update README/write up how-to
