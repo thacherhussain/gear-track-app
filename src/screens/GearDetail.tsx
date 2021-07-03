@@ -5,11 +5,11 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 
 import i18n from '../localization/i18n'
-import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { errorColor } from '../style/colors'
+import {BasicText, Header, TitleText} from '../components'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>
 
@@ -23,29 +23,30 @@ const GearDetails: FC<GearDetailProps> = (props) => {
   const { singleItem } = route.params
 
   const { itemName, itemDescription, id } = singleItem
+
+  const [newItemName, setNewItemName] = useState<string>(itemName)
+  const [newItemDescription, setNewItemDescription] = useState<string>(itemDescription)
   const [editing, setEditing] = useState<boolean>(false)
 
   const { user } = useContext(AppContext)
   const userId = user.uid
-  function handleItem() {
-    if (!user) {
-      navigation.goBack()
-    } else {
-      const newItem = {
-        itemName,
-        itemDescription,
-      }
-      db.collection('main').doc(userId).collection('gear').add(newItem)
-      navigation.navigate('GearList')
-    }
+  const firebaseItem = db.collection('main').doc(userId).collection('gear').doc(id)
+  
+  const handleEditItem = () => {
+      firebaseItem.set({
+        itemName: newItemName,
+        itemDescription: newItemDescription,
+      })
+      .then(() => {
+        navigation.navigate('GearList')
+      })
+      .catch((error: any) => {
+        console.error('Error editing document: ', error)
+      })
   }
 
-  // handleEditItem
-
   const handleDeleteItem = () => {
-    const item = db.collection('main').doc(userId).collection('gear').doc(id)
-
-    item
+    firebaseItem
       .delete()
       .then(() => {
         console.log('Document successfully deleted!')
@@ -61,9 +62,8 @@ const GearDetails: FC<GearDetailProps> = (props) => {
       <Header titleText={'Gear Details'} />
       {!editing ? (
         <View style={styles.container}>
-          <Text>Item Id: {id}</Text>
-          <Text>Item Name: {itemName}</Text>
-          <Text>Item Description: {itemDescription}</Text>
+          <Text  style={styles.title}>Item Name: {itemName}</Text>
+          <Text  style={styles.text}>Item Description: {itemDescription}</Text>
           <Button onPress={() => setEditing(!editing)}>Edit</Button>
           <Button color={errorColor} onPress={() => handleDeleteItem()}>
             Delete
@@ -74,18 +74,18 @@ const GearDetails: FC<GearDetailProps> = (props) => {
         </View>
       ) : (
         <View style={styles.container}>
-          <Text style={styles.title}>Edit Text</Text>
-          {/* <TextInput
+          <TitleText>Edit Text</TitleText>
+          <TextInput
             label={i18n.t('ItemName')}
-            value={itemName}
+            value={newItemName}
             mode='outlined'
-            onChangeText={setItemName}
+            onChangeText={setNewItemName}
             style={styles.title}
           />
           <TextInput
             label={i18n.t('ItemDescription')}
-            value={itemDescription}
-            onChangeText={setItemDescription}
+            value={newItemDescription}
+            onChangeText={setNewItemDescription}
             mode='flat'
             multiline={true}
             style={styles.text}
@@ -98,13 +98,13 @@ const GearDetails: FC<GearDetailProps> = (props) => {
               {i18n.t('Cancel')}
             </Button>
             <Button
-              disabled={itemName == '' ? true : false}
-              onPress={() => handleItem()}
+              disabled={newItemName == '' ? true : false}
+              onPress={() => handleEditItem()}
             >
               Save
             </Button>
-          </View> */}
-          <Button onPress={() => setEditing(!editing)}>Save</Button>
+          </View>
+          {/* <Button onPress={() => setEditing(!editing)}>Save</Button> */}
         </View>
       )}
     </>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   text: {
-    height: 300,
+    height: 50,
     fontSize: 16,
   },
 })

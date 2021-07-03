@@ -46,7 +46,7 @@ const GearList: FC<GearListProps> = (props) => {
         id: item.id,
       })
     })
-
+console.log(gearList)
     // gearList.sort((a, b) => a.itemName - b.itemName)
     gearList.sort((a, b) => (a.itemName > b.itemName ? 1 : -1))
 
