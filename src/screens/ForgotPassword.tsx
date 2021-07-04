@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
 import i18n from '../localization/i18n'
-import { Header, ErrorText, FeedbackText } from '@src/components'
+import { ErrorText, FeedbackText } from '@src/components'
 import { passwordReset } from '../firebase/firebase'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '@src/types'
@@ -33,28 +33,24 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   }
 
   return (
-    <>
-      <Header titleText={i18n.t('ForgotPassword')} />
-      <View style={styles.container}>
-        <TextInput
-          label={i18n.t('Email')}
-          value={email}
-          mode='outlined'
-          onChangeText={setEmail}
-          autoCapitalize={'none'}
-          style={styles.title}
-        />
+    <View style={styles.container}>
+      <TextInput
+        label={i18n.t('Email')}
+        value={email}
+        mode='outlined'
+        onChangeText={setEmail}
+        autoCapitalize={'none'}
+        style={styles.title}
+      />
 
-        <Button onPress={() => handleResetPassword()}>
-          {i18n.t('ResetPassword')}
-        </Button>
-        <Button onPress={() => navigation.goBack()}>{i18n.t('Cancel')}</Button>
-        {isPasswordReset && (
-          <FeedbackText text={i18n.t('CheckYourEmailToResetPassword')} />
-        )}
-        {passwordResetError && <ErrorText>{passwordResetError}</ErrorText>}
-      </View>
-    </>
+      <Button onPress={() => handleResetPassword()}>
+        {i18n.t('ResetPassword')}
+      </Button>
+      {isPasswordReset && (
+        <FeedbackText text={i18n.t('CheckYourEmailToResetPassword')} />
+      )}
+      {passwordResetError && <ErrorText>{passwordResetError}</ErrorText>}
+    </View>
   )
 }
 

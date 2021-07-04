@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
 import validateLogin from '../utils/validateLogin'
-import { Header, ErrorText } from '@src/components'
+import { ErrorText } from '@src/components'
 import { loginWithEmail, registerWithEmail } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 
@@ -74,64 +74,65 @@ const Login: FC<Props> = (props) => {
     setShowNameError(false)
   }
 
-  return (
-    <>
-      <Header titleText={login ? i18n.t('Login') : i18n.t('CreateAccount')} />
-      <View style={styles.container}>
-        {!login && (
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.textInput}
-              label={i18n.t('Name')}
-              value={name}
-              mode='outlined'
-              onChangeText={setState('name')}
-            />
-            {showNameError && !name ? (
-              <ErrorText>{i18n.t('Enter Name')}</ErrorText>
-            ) : null}
-          </View>
-        )}
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.textInput}
-            label={i18n.t('Email')}
-            value={email}
-            mode='outlined'
-            onChangeText={setState('email')}
-            autoCapitalize={'none'}
-          />
-          {errors.email && <ErrorText>{errors.email}</ErrorText>}
-        </View>
+  useEffect(() => {
+    navigation.setOptions({ title: login ? 'Login' : 'Sign Up' })
+  }, [login])
 
+  return (
+    <View style={styles.container}>
+      {!login && (
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
-            label={i18n.t('Password')}
-            value={password}
+            label={i18n.t('Name')}
+            value={name}
             mode='outlined'
-            onChangeText={setState('password')}
-            autoCapitalize={'none'}
-            secureTextEntry={true}
+            onChangeText={setState('name')}
           />
-          {errors.password && <ErrorText>{errors.password}</ErrorText>}
-          {!errors.password && firebaseError && (
-            <ErrorText>{firebaseError}</ErrorText>
-          )}
+          {showNameError && !name ? (
+            <ErrorText>{i18n.t('Enter Name')}</ErrorText>
+          ) : null}
         </View>
-        <View style={styles.buttonView}>
-          <Button onPress={() => signUp()}>
-            {login ? i18n.t('SignIn') : i18n.t('Submit')}
-          </Button>
-          <Button onPress={() => toggleSignUpLogin()}>
-            {login ? i18n.t('NeedAnAccount') : i18n.t('AlreadyHaveAnAccount')}
-          </Button>
-          <Button onPress={() => navigation.navigate('ForgotPassword')}>
-            {i18n.t('ForgotPassword')}
-          </Button>
-        </View>
+      )}
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.textInput}
+          label={i18n.t('Email')}
+          value={email}
+          mode='outlined'
+          onChangeText={setState('email')}
+          autoCapitalize={'none'}
+        />
+        {errors.email && <ErrorText>{errors.email}</ErrorText>}
       </View>
-    </>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.textInput}
+          label={i18n.t('Password')}
+          value={password}
+          mode='outlined'
+          onChangeText={setState('password')}
+          autoCapitalize={'none'}
+          secureTextEntry={true}
+        />
+        {errors.password && <ErrorText>{errors.password}</ErrorText>}
+        {!errors.password && firebaseError && (
+          <ErrorText>{firebaseError}</ErrorText>
+        )}
+      </View>
+      <View style={styles.buttonView}>
+        <Button onPress={() => signUp()}>
+          {login ? i18n.t('SignIn') : i18n.t('Submit')}
+        </Button>
+        <Button onPress={() => toggleSignUpLogin()}>
+          {login ? i18n.t('NeedAnAccount') : i18n.t('AlreadyHaveAnAccount')}
+        </Button>
+        <Button onPress={() => navigation.navigate('ForgotPassword')}>
+          {i18n.t('ForgotPassword')}
+        </Button>
+      </View>
+    </View>
   )
 }
 

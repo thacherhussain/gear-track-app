@@ -1,17 +1,10 @@
 import React, { FC, useState, useContext } from 'react'
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  ActivityIndicator,
-  Pressable,
-} from 'react-native'
-import { Text, FAB, List } from 'react-native-paper'
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
+import { Text, FAB, List, IconButton } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 
 import i18n from '../localization/i18n'
-import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
@@ -73,10 +66,12 @@ const GearList: FC<GearListProps> = (props) => {
               description={item.itemDescription}
               descriptionNumberOfLines={1}
               titleStyle={styles.listTitle}
-              right={(iconProps) => (
-                <Pressable onPress={() => onPress(item)}>
-                  <List.Icon {...iconProps} icon='chevron-right' />
-                </Pressable>
+              right={() => (
+                <IconButton
+                  onPress={() => onPress(item)}
+                  icon='chevron-right'
+                  size={30}
+                />
               )}
             />
           </>
@@ -87,7 +82,6 @@ const GearList: FC<GearListProps> = (props) => {
 
   return (
     <>
-      <Header titleText={i18n.t('GearApp')} />
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />

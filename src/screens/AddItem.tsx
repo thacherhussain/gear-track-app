@@ -4,7 +4,6 @@ import { Button, TextInput } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
-import Header from '@src/components/Header'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
@@ -34,7 +33,6 @@ const AddItems: FC<AddItemProps> = (props) => {
 
   return (
     <>
-      <Header titleText={i18n.t('AddANewItem')} />
       <View style={styles.container}>
         <TextInput
           label={i18n.t('ItemName')}

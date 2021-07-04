@@ -9,7 +9,7 @@ import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { errorColor } from '../style/colors'
-import { Header, TitleText } from '../components'
+import { TitleText } from '../components'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>
 
@@ -67,7 +67,6 @@ const GearDetails: FC<GearDetailProps> = (props) => {
 
   return (
     <>
-      <Header titleText={'Gear Details'} />
       {!editing ? (
         <View style={styles.container}>
           <Text style={styles.title}>Item Name: {itemName}</Text>
@@ -86,15 +85,11 @@ const GearDetails: FC<GearDetailProps> = (props) => {
               justifyContent: 'center',
               marginTop: 30,
             }}
-          >
-            <Button onPress={() => navigation.navigate('GearList')}>
-              {i18n.t('BackToGearList')}
-            </Button>
-          </View>
+          ></View>
         </View>
       ) : (
         <View style={styles.container}>
-          <TitleText>Edit Text</TitleText>
+          <TitleText>{i18n.t('EditItem')}</TitleText>
           <TextInput
             label={i18n.t('ItemName')}
             value={newItemName}
