@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   RefreshControl,
   SafeAreaView,
-  ScrollView,
 } from 'react-native'
 import { Text, FAB, List, IconButton } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -57,6 +56,7 @@ const GearList: FC<GearListProps> = (props) => {
   }
 
   const refreshGear = async () => {
+    setRefreshing(true)
     const doc = await db.collection('main').doc(user.uid).get()
     const gearRef = await doc.ref.collection('gear').get()
 
@@ -71,8 +71,8 @@ const GearList: FC<GearListProps> = (props) => {
     })
 
     gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
-
     setGear(gearList)
+    setRefreshing(false)
   }
 
   const onPress = (item: any) => {
@@ -98,6 +98,10 @@ const GearList: FC<GearListProps> = (props) => {
     ) : (
       <FlatList
         data={gear}
+        style={{ height: '110%' }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={refreshGear} />
+        }
         renderItem={({ item }) => (
           <>
             <List.Item
@@ -115,28 +119,23 @@ const GearList: FC<GearListProps> = (props) => {
     )
 
   return (
-    <SafeAreaView>
+    <>
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />
         </View>
       ) : (
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={refreshGear} />
-          }
-        >
+        <SafeAreaView style={{ height: '100%' }}>
           <View style={styles.container}>{body}</View>
-        </ScrollView>
+          {addButton}
+        </SafeAreaView>
       )}
-      {addButton}
-    </SafeAreaView>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 10,
     paddingVertical: 20,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e6091',
     position: 'absolute',
     margin: 20,
-    marginTop: 200,
+    marginBottom: 40,
     right: 0,
     bottom: 10,
   },
