@@ -14,8 +14,12 @@ type AddItemProps = {
 
 const AddItems: FC<AddItemProps> = (props) => {
   const { navigation } = props
-  const [itemName, setItemName] = useState('')
-  const [itemDescription, setItemDescription] = useState('')
+  const [itemName, setItemName] = useState<string>('')
+  const [itemDescription, setItemDescription] = useState<string>('')
+  const [itemBrand, setItemBrand] = useState<string>('')
+  const [itemColor, setItemColor] = useState<string>('')
+  const [itemSize, setItemSize] = useState<string>('')
+  const [itemWeight, setItemWeight] = useState<string>('')
   const { user } = useContext(AppContext)
   const userId = user.uid
   function handleItem() {
@@ -27,7 +31,7 @@ const AddItems: FC<AddItemProps> = (props) => {
         itemDescription,
       }
       db.collection('main').doc(userId).collection('gear').add(newItem)
-      navigation.navigate('GearList')
+      navigation.goBack()
     }
   }
 
@@ -35,14 +39,42 @@ const AddItems: FC<AddItemProps> = (props) => {
     <>
       <View style={styles.container}>
         <TextInput
-          label={i18n.t('ItemName')}
+          label={i18n.t('Name')}
           value={itemName}
           mode='outlined'
           onChangeText={setItemName}
-          style={styles.title}
+          style={styles.input}
         />
         <TextInput
-          label={i18n.t('ItemDescription')}
+          label={i18n.t('Brand')}
+          value={itemBrand}
+          mode='outlined'
+          onChangeText={setItemBrand}
+          style={styles.input}
+        />
+        <TextInput
+          label={i18n.t('Color')}
+          value={itemColor}
+          mode='outlined'
+          onChangeText={setItemColor}
+          style={styles.input}
+        />
+        <TextInput
+          label={i18n.t('Size')}
+          value={itemSize}
+          mode='outlined'
+          onChangeText={setItemSize}
+          style={styles.input}
+        />
+        <TextInput
+          label={i18n.t('Weight')}
+          value={itemWeight}
+          mode='outlined'
+          onChangeText={setItemWeight}
+          style={styles.input}
+        />
+        <TextInput
+          label={i18n.t('Description')}
           value={itemDescription}
           onChangeText={setItemDescription}
           mode='flat'
@@ -53,7 +85,7 @@ const AddItems: FC<AddItemProps> = (props) => {
           blurOnSubmit={true}
         />
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Button onPress={() => navigation.navigate('GearList')}>
+          <Button onPress={() => navigation.goBack()}>
             {i18n.t('Cancel')}
           </Button>
           <Button
@@ -68,6 +100,8 @@ const AddItems: FC<AddItemProps> = (props) => {
   )
 }
 
+export default AddItems
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -79,10 +113,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
   },
+  input: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
   text: {
-    height: 300,
+    height: 200,
     fontSize: 16,
   },
 })
-
-export default AddItems

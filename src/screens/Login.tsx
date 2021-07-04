@@ -52,7 +52,7 @@ const Login: FC<Props> = (props) => {
       login
         ? await loginWithEmail(email, password)
         : await registerWithEmail(name, email, password)
-      navigation.navigate('GearList')
+      // navigation.navigate('GearList')
     } catch (err) {
       console.log('Authentication Error', err)
       setFirebaseError(err.message)

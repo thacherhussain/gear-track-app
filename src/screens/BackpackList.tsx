@@ -6,16 +6,16 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../localization/i18n'
 import { RootStackParamList } from '@src/types'
 
-type BackpackProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'Backpack'>
+type BackpackListProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'BackpackList'>
 }
 
-const Backpack: FC<BackpackProps> = (props) => {
+const BackpackList: FC<BackpackListProps> = (props) => {
   const { navigation } = props
 
   return (
     <View style={styles.container}>
-      <Text>Backpack</Text>
+      <Text>Backpack List</Text>
     </View>
   )
 }
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Backpack
+export default BackpackList

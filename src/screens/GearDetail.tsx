@@ -44,9 +44,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
         itemDescription: newItemDescription,
       })
       .then(() => {
-        navigation.navigate('GearList')
-        // setEditing(false)
-        // if not rerouting to GearList, need to find a way to refresh the info back on the editing screen
+        navigation.goBack()
       })
       .catch((error: any) => {
         console.error('Error editing document: ', error)
@@ -58,7 +56,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
       .delete()
       .then(() => {
         console.log('Document successfully deleted!')
-        navigation.navigate('GearList')
+        navigation.goBack()
       })
       .catch((error: any) => {
         console.error('Error removing document: ', error)

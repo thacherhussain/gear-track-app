@@ -66,13 +66,8 @@ const GearList: FC<GearListProps> = (props) => {
               description={item.itemDescription}
               descriptionNumberOfLines={1}
               titleStyle={styles.listTitle}
-              right={() => (
-                <IconButton
-                  onPress={() => onPress(item)}
-                  icon='chevron-right'
-                  size={30}
-                />
-              )}
+              onPress={() => onPress(item)}
+              right={() => <IconButton icon='chevron-right' size={30} />}
             />
           </>
         )}
