@@ -1,5 +1,13 @@
 import React, { FC, useState, useContext } from 'react'
-import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native'
 import { Text, FAB, List, IconButton } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
@@ -15,9 +23,11 @@ type GearListProps = {
 
 const GearList: FC<GearListProps> = (props) => {
   const { navigation } = props
+  const { user } = useContext(AppContext)
+
   const [gear, setGear] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { user } = useContext(AppContext)
+  const [refreshing, setRefreshing] = useState(false)
 
   useFocusEffect(
     React.useCallback(() => {
@@ -46,10 +56,39 @@ const GearList: FC<GearListProps> = (props) => {
     setIsLoading(false)
   }
 
+  const refreshGear = async () => {
+    const doc = await db.collection('main').doc(user.uid).get()
+    const gearRef = await doc.ref.collection('gear').get()
+
+    const gearList: any[] = []
+
+    gearRef.forEach((item: any) => {
+      const data = item.data()
+      gearList.push({
+        ...data,
+        id: item.id,
+      })
+    })
+
+    gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
+
+    setGear(gearList)
+  }
+
   const onPress = (item: any) => {
     const singleItem = gear.find((i) => i.id === item.id)
     navigation.navigate('GearDetail', { singleItem: singleItem })
   }
+
+  const addButton = (
+    <FAB
+      style={styles.fab}
+      small
+      icon='plus'
+      label={i18n.t('AddNewItem')}
+      onPress={() => navigation.navigate('AddItem')}
+    />
+  )
 
   const body =
     gear.length === 0 ? (
@@ -76,24 +115,22 @@ const GearList: FC<GearListProps> = (props) => {
     )
 
   return (
-    <>
+    <SafeAreaView>
       {isLoading ? (
         <View style={styles.titleContainer}>
           <ActivityIndicator size='large' />
         </View>
       ) : (
-        <View style={styles.container}>
-          {body}
-          <FAB
-            style={styles.fab}
-            small
-            icon='plus'
-            label={i18n.t('AddNewItem')}
-            onPress={() => navigation.navigate('AddItem')}
-          />
-        </View>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={refreshGear} />
+          }
+        >
+          <View style={styles.container}>{body}</View>
+        </ScrollView>
       )}
-    </>
+      {addButton}
+    </SafeAreaView>
   )
 }
 
@@ -116,6 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e6091',
     position: 'absolute',
     margin: 20,
+    marginTop: 200,
     right: 0,
     bottom: 10,
   },
