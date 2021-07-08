@@ -109,6 +109,8 @@ const GearList: FC<GearListProps> = (props) => {
               description={item.itemDescription}
               descriptionNumberOfLines={1}
               titleStyle={styles.listTitle}
+              descriptionStyle={styles.listDescription}
+              style={styles.listItem}
               onPress={() => onPress(item)}
               right={() => <IconButton icon='chevron-right' size={30} />}
             />
@@ -157,7 +159,14 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   listTitle: {
-    fontSize: 20,
+    fontSize: 14,
+  },
+  listDescription: {
+    fontSize: 10,
+  },
+  listItem: {
+    padding: 0,
+    paddingLeft: 5,
   },
 })
 

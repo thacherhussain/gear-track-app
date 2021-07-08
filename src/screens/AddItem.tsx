@@ -1,12 +1,13 @@
 import React, { FC, useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, TextInput } from 'react-native-paper'
+import { Button, TextInput, Text } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../localization/i18n'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
+import { SingleLineInput, MultiLineInput } from '@src/components'
 
 type AddItemProps = {
   navigation: StackNavigationProp<RootStackParamList, 'AddItem'>
@@ -38,51 +39,48 @@ const AddItems: FC<AddItemProps> = (props) => {
   return (
     <>
       <View style={styles.container}>
-        <TextInput
+        <SingleLineInput
           label={i18n.t('Name')}
           value={itemName}
-          mode='outlined'
           onChangeText={setItemName}
-          style={styles.input}
         />
-        <TextInput
+
+        <SingleLineInput
           label={i18n.t('Brand')}
           value={itemBrand}
-          mode='outlined'
           onChangeText={setItemBrand}
-          style={styles.input}
         />
-        <TextInput
+        <SingleLineInput
           label={i18n.t('Color')}
           value={itemColor}
-          mode='outlined'
           onChangeText={setItemColor}
-          style={styles.input}
         />
-        <TextInput
+        <SingleLineInput
           label={i18n.t('Size')}
           value={itemSize}
-          mode='outlined'
           onChangeText={setItemSize}
-          style={styles.input}
         />
-        <TextInput
+        <SingleLineInput
           label={i18n.t('Weight')}
           value={itemWeight}
-          mode='outlined'
           onChangeText={setItemWeight}
-          style={styles.input}
         />
-        <TextInput
+        {/* <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
+            <SingleLineInput
+              label={i18n.t('Weight')}
+              value={itemWeight}
+              onChangeText={setItemWeight}
+            />
+          </View>
+          <View style={{ flex: 1, paddingLeft: 10, paddingTop: 10 }}>
+            <Text>Put Units Radio Buttons</Text>
+          </View>
+        </View> */}
+        <MultiLineInput
           label={i18n.t('Description')}
           value={itemDescription}
           onChangeText={setItemDescription}
-          mode='flat'
-          multiline={true}
-          style={styles.text}
-          scrollEnabled={true}
-          returnKeyType='done'
-          blurOnSubmit={true}
         />
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Button onPress={() => navigation.goBack()}>

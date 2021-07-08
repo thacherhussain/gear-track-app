@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-paper'
 type MultiLineInputProps = {
   label: string
   value: string
-  onChangeText: () => void
+  onChangeText: any
 }
 
 const MultiLineInput: FC<MultiLineInputProps> = (props) => {

@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-paper'
 type SingleLineInputProps = {
   label: string
   value: string
-  onChangeText: () => void
+  onChangeText: any
 }
 
 const SingleLineInput: FC<SingleLineInputProps> = (props) => {
@@ -14,7 +14,7 @@ const SingleLineInput: FC<SingleLineInputProps> = (props) => {
     <TextInput
       label={label}
       value={value}
-      onChangeText={() => onChangeText}
+      onChangeText={onChangeText}
       mode='outlined'
       style={styles.input}
     />
