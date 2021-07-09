@@ -52,12 +52,15 @@ App to track gear for hiking and climbing
   - custom components
   - smaller lines on gear list ✅ 
 - create useGear custom hook to fetch gear from firebase
+- replace forms with react hook form
 - add "Create a backpack" feature
   - summary stats at the top: total weight, description, used for
 - break up sections by type (i.e. clothing, running, nutrition)
-- swipe to delete gear items (https://docs.swmansion.com/react-native-gesture-handler/docs/)
+- swipe to delete gear items - possibilities: 
+  - (https://docs.swmansion.com/react-native-gesture-handler/docs/)
+  - https://github.com/jemise111/react-native-swipe-list-view
 
-- remove unused libraries: axios
+- remove unused libraries: axios ✅
 - push to github
 - update README/write up how-to
 
