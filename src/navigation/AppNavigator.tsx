@@ -29,7 +29,7 @@ const AppNavigator = () => {
     !user ? setIsSignedIn(false) : setIsSignedIn(true)
   }, [user])
 
-  async function handleSignOut(props) {
+  async function handleSignOut(props: any) {
     try {
       await logout()
       setIsSignedIn(false)

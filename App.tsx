@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import AppNavigator from '@src/navigation/AppNavigator'
 import { AppProvider } from './src/navigation/AppProvider'
-
+import { NativeBaseProvider, Box } from 'native-base'
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -17,9 +17,11 @@ export default function App() {
   return (
     <AppProvider>
       <NavigationContainer>
-        <PaperProvider theme={theme}>
-          <AppNavigator />
-        </PaperProvider>
+        <NativeBaseProvider>
+          <PaperProvider theme={theme}>
+            <AppNavigator />
+          </PaperProvider>
+        </NativeBaseProvider>
       </NavigationContainer>
     </AppProvider>
   )
