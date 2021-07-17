@@ -35,7 +35,7 @@ App to track gear for hiking and climbing
 - update lint and husky to run ts and tsx file ✅
 - if you have no gear on load -- don't show add item, or show message that says it's referring you to the add item screen because you don't have any items ✅
 - add ability delete items ✅ 
-- list should reload after editing or deleting ✅
+-c list should reload after editing or deleting ✅
 - sort list aphabetically by itemName ✅
 - add ability to edit items ✅
 - add drawer nav side menu - Gear List, Backpacks, Login/Logout ✅
@@ -64,7 +64,7 @@ App to track gear for hiking and climbing
 - push to github
 - update README/write up how-to
 
-#### Next Features:
+#### Next Features:`
 - import/export features
 - add feature to include photo in gear details
 - add feature to scan barcodes and add gear details from there
