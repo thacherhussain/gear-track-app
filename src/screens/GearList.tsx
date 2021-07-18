@@ -7,7 +7,7 @@ import {
   RefreshControl,
   SafeAreaView,
 } from 'react-native'
-import { Text, FAB, List, IconButton } from 'react-native-paper'
+import { List, IconButton, FAB } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -15,6 +15,8 @@ import i18n from '../localization/i18n'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
+import { Icon, Text } from 'native-base'
+import { AntDesign } from '@expo/vector-icons'
 
 type GearListProps = {
   navigation: StackNavigationProp<RootStackParamList, 'GearList'>
@@ -103,18 +105,16 @@ const GearList: FC<GearListProps> = (props) => {
           <RefreshControl refreshing={refreshing} onRefresh={refreshGear} />
         }
         renderItem={({ item }) => (
-          <>
-            <List.Item
-              title={item.itemName}
-              description={item.itemDescription}
-              descriptionNumberOfLines={1}
-              titleStyle={styles.listTitle}
-              descriptionStyle={styles.listDescription}
-              style={styles.listItem}
-              onPress={() => onPress(item)}
-              right={() => <IconButton icon='chevron-right' size={30} />}
-            />
-          </>
+          <List.Item
+            title={item.itemName}
+            description={item.itemDescription}
+            descriptionNumberOfLines={1}
+            titleStyle={styles.listTitle}
+            descriptionStyle={styles.listDescription}
+            style={styles.listItem}
+            onPress={() => onPress(item)}
+            right={() => <IconButton icon='chevron-right' size={30} />}
+          />
         )}
         keyExtractor={(item) => item.id.toString()}
       />
@@ -139,8 +139,6 @@ const GearList: FC<GearListProps> = (props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 20,
   },
   titleContainer: {
     alignItems: 'center',
@@ -151,7 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   fab: {
-    backgroundColor: '#1e6091',
     position: 'absolute',
     margin: 20,
     marginBottom: 40,
