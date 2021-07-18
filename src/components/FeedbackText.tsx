@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Text } from 'native-base'
 
 type FeedbackTextProps = {
   text: string
@@ -7,13 +8,17 @@ type FeedbackTextProps = {
 
 const FeedbackText: FC<FeedbackTextProps> = (props) => {
   const { text } = props
-  return <Text style={styles.error}>{text}</Text>
+  return (
+    <Text fontSize='xs' ml={'1'} style={styles.text}>
+      {text}
+    </Text>
+  )
 }
 
 export default FeedbackText
 
 const styles = StyleSheet.create({
-  error: {
+  text: {
     textAlign: 'center',
   },
 })

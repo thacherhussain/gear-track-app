@@ -42,6 +42,8 @@ App to track gear for hiking and climbing
 - use header button to operate toggle drawer ✅
 - Add use react navigation header with nav theme (pull logout from custom header) ✅
 
+- Finish Refactor with Native Base
+  - GearList screen + Backpack screens
 ### Active Tasks (Before Firebase --> AsyncStorage)
 - add drag down to refresh (https://reactnative.dev/docs/refreshcontrol) ✅
 - add more fields for gear details

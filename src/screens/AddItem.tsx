@@ -1,13 +1,12 @@
 import React, { FC, useState, useContext } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Button, TextInput, Text } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { Stack, Input, Button } from 'native-base'
 
 import i18n from '../localization/i18n'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
-import { SingleLineInput, MultiLineInput } from '@src/components'
+import { Page } from '@src/components'
 
 type AddItemProps = {
   navigation: StackNavigationProp<RootStackParamList, 'AddItem'>
@@ -37,38 +36,38 @@ const AddItems: FC<AddItemProps> = (props) => {
   }
 
   return (
-    <>
-      <View style={styles.container}>
-        <SingleLineInput
-          label={i18n.t('Name')}
+    <Page>
+      <Stack space={4} paddingX={4} safeArea>
+        <Input
+          placeholder={i18n.t('Name')}
           value={itemName}
           onChangeText={setItemName}
         />
 
-        <SingleLineInput
-          label={i18n.t('Brand')}
+        <Input
+          placeholder={i18n.t('Brand')}
           value={itemBrand}
           onChangeText={setItemBrand}
         />
-        <SingleLineInput
-          label={i18n.t('Color')}
+        <Input
+          placeholder={i18n.t('Color')}
           value={itemColor}
           onChangeText={setItemColor}
         />
-        <SingleLineInput
-          label={i18n.t('Size')}
+        <Input
+          placeholder={i18n.t('Size')}
           value={itemSize}
           onChangeText={setItemSize}
         />
-        <SingleLineInput
-          label={i18n.t('Weight')}
+        <Input
+          placeholder={i18n.t('Weight')}
           value={itemWeight}
           onChangeText={setItemWeight}
         />
         {/* <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
-            <SingleLineInput
-              label={i18n.t('Weight')}
+            <Input
+              placeholder={i18n.t('Weight')}
               value={itemWeight}
               onChangeText={setItemWeight}
             />
@@ -77,46 +76,23 @@ const AddItems: FC<AddItemProps> = (props) => {
             <Text>Put Units Radio Buttons</Text>
           </View>
         </View> */}
-        <MultiLineInput
-          label={i18n.t('Description')}
+        <Input
+          placeholder={i18n.t('Description')}
           value={itemDescription}
           onChangeText={setItemDescription}
+          multiline={true}
+          height={200}
         />
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Button onPress={() => navigation.goBack()}>
-            {i18n.t('Cancel')}
-          </Button>
-          <Button
-            disabled={itemName == '' ? true : false}
-            onPress={() => handleItem()}
-          >
-            {i18n.t('AddItem')}
-          </Button>
-        </View>
-      </View>
-    </>
+        <Button
+          disabled={itemName == '' ? true : false}
+          onPress={() => handleItem()}
+          size={'sm'}
+        >
+          {i18n.t('AddItem')}
+        </Button>
+      </Stack>
+    </Page>
   )
 }
 
 export default AddItems
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  input: {
-    fontSize: 16,
-    marginBottom: 20,
-  },
-  text: {
-    height: 200,
-    fontSize: 16,
-  },
-})

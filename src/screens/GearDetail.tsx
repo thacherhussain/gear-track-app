@@ -1,15 +1,13 @@
 import React, { FC, useState, useContext } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Button, TextInput, Text } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
+import { Stack, Input, Box, Text } from 'native-base'
 
 import i18n from '../localization/i18n'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
-import { errorColor } from '../style/colors'
-import { TitleText } from '../components'
+import { Page, YesNoButtonGroup } from '@src/components'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>
 
@@ -64,81 +62,53 @@ const GearDetails: FC<GearDetailProps> = (props) => {
   }
 
   return (
-    <>
+    <Page>
       {!editing ? (
-        <View style={styles.container}>
-          <Text style={styles.title}>Item Name: {itemName}</Text>
-          <Text style={styles.text}>Item Description: {itemDescription}</Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Button onPress={() => setEditing(!editing)}>
-              {i18n.t('Edit')}
-            </Button>
-            <Button color={errorColor} onPress={() => handleDeleteItem()}>
-              {i18n.t('Delete')}
-            </Button>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: 30,
-            }}
-          ></View>
-        </View>
+        <>
+          <Box m={4}>
+            <Text fontSize={'2xl'}>Item Name: {itemName}</Text>
+            <Text>Item Description: {itemDescription}</Text>
+          </Box>
+          <YesNoButtonGroup
+            yesText={i18n.t('Edit')}
+            noText={i18n.t('Delete')}
+            yesOnPress={() => setEditing(!editing)}
+            noOnPress={() => handleDeleteItem()}
+          />
+        </>
       ) : (
-        <View style={styles.container}>
-          <TitleText>{i18n.t('EditItem')}</TitleText>
-          <TextInput
-            label={i18n.t('ItemName')}
-            value={newItemName}
-            mode='outlined'
-            onChangeText={setNewItemName}
-            style={styles.title}
+        <>
+          <Box m={4}>
+            <Text fontSize={'2xl'}>{i18n.t('EditItem')}</Text>
+          </Box>
+          <Stack space={4} px={4}>
+            <Input
+              placeholder={i18n.t('ItemName')}
+              value={newItemName}
+              onChangeText={setNewItemName}
+            />
+            <Input
+              placeholder={i18n.t('ItemDescription')}
+              value={newItemDescription}
+              onChangeText={setNewItemDescription}
+              multiline={true}
+              height={200}
+              scrollEnabled={true}
+              returnKeyType='done'
+              blurOnSubmit={true}
+            />
+          </Stack>
+          <YesNoButtonGroup
+            yesText={i18n.t('Save')}
+            noText={i18n.t('Cancel')}
+            yesDisabled={newItemName == '' ? true : false}
+            yesOnPress={() => handleEditItem()}
+            noOnPress={() => setEditing(false)}
           />
-          <TextInput
-            label={i18n.t('ItemDescription')}
-            value={newItemDescription}
-            onChangeText={setNewItemDescription}
-            mode='flat'
-            multiline={true}
-            style={styles.text}
-            scrollEnabled={true}
-            returnKeyType='done'
-            blurOnSubmit={true}
-          />
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Button onPress={() => setEditing(false)}>
-              {i18n.t('Cancel')}
-            </Button>
-            <Button
-              disabled={newItemName == '' ? true : false}
-              onPress={() => handleEditItem()}
-            >
-              Save
-            </Button>
-          </View>
-          {/* <Button onPress={() => setEditing(!editing)}>Save</Button> */}
-        </View>
+        </>
       )}
-    </>
+    </Page>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  text: {
-    height: 300,
-    fontSize: 16,
-  },
-})
 
 export default GearDetails

@@ -9,12 +9,12 @@ type ScratchProps = {
   navigation: StackNavigationProp<RootStackParamList, 'ForgotPassword'>
 }
 
-const Scratch: FC<ScratchProps> = (props) => {
+const Scratch: FC<ScratchProps> = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Stack space={4} w='100%' safeArea>
-        <Input size='xs' placeholder='input' marginX='2' />
-        <Input size='xs' placeholder='input' marginX='2' />
+        <Input size={'xs'} placeholder={'input'} mx={'2'} />
+        <Input size={'xs'} placeholder={'input'} mx={'2'} />
       </Stack>
     </ScrollView>
   )
