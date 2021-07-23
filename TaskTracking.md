@@ -45,6 +45,8 @@ App to track gear for hiking and climbing
 - Finish Refactor with Native Base
   - GearList screen + Backpack screens
   - Theme Colors
+  - Side Menu Colors
+  - Component Library style components using base theme
 - React Hook Form
 
 ### Active Tasks (Before Firebase --> AsyncStorage)
