@@ -53,23 +53,25 @@ App to track gear for hiking and climbing
 - add drag down to refresh (https://reactnative.dev/docs/refreshcontrol) ✅
 - add more fields for gear details
   - brand, color, size, weight, description ✅
-  - add weight (number/units), quantity (number)
-  - update edit and details screens to match add
 - UI updates
-  - custom components
   - smaller lines on gear list ✅ 
+- remove unused libraries: axios ✅
 - create useGear custom hook to fetch gear from firebase
 - replace forms with react hook form
+
+- push to github
+- update README/write up how-to
+
+### After Move to Async Storage
+- add more fields for gear details
+  - add weight (number/units), quantity (number)
+  - update edit and details screens to match add
 - add "Create a backpack" feature
   - summary stats at the top: total weight, description, used for
 - break up sections by type (i.e. clothing, running, nutrition)
 - swipe to delete gear items - possibilities: 
   - (https://docs.swmansion.com/react-native-gesture-handler/docs/)
   - https://github.com/jemise111/react-native-swipe-list-view
-
-- remove unused libraries: axios ✅
-- push to github
-- update README/write up how-to
 
 #### Next Features:`
 - import/export features
