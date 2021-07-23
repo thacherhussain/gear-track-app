@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native'
 import { List, IconButton, FAB } from 'react-native-paper'
+import { Center, Text } from 'native-base'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -15,8 +16,8 @@ import i18n from '../localization/i18n'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
-import { Icon, Text } from 'native-base'
-import { AntDesign } from '@expo/vector-icons'
+import { primaryLink } from '../style/colors'
+import { Page } from '../components'
 
 type GearListProps = {
   navigation: StackNavigationProp<RootStackParamList, 'GearList'>
@@ -94,9 +95,11 @@ const GearList: FC<GearListProps> = (props) => {
 
   const body =
     gear.length === 0 ? (
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>{i18n.t('NoGear')}</Text>
-      </View>
+      <Page>
+        <Center>
+          <Text style={styles.title}>{i18n.t('NoGear')}</Text>
+        </Center>
+      </Page>
     ) : (
       <FlatList
         data={gear}
@@ -113,7 +116,9 @@ const GearList: FC<GearListProps> = (props) => {
             descriptionStyle={styles.listDescription}
             style={styles.listItem}
             onPress={() => onPress(item)}
-            right={() => <IconButton icon='chevron-right' size={30} />}
+            right={() => (
+              <IconButton icon='chevron-right' size={30} color={primaryLink} />
+            )}
           />
         )}
         keyExtractor={(item) => item.id.toString()}

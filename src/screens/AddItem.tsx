@@ -7,6 +7,7 @@ import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { Page } from '@src/components'
+import { teal } from '../style/colors'
 
 type AddItemProps = {
   navigation: StackNavigationProp<RootStackParamList, 'AddItem'>
@@ -87,6 +88,7 @@ const AddItems: FC<AddItemProps> = (props) => {
           disabled={itemName == '' ? true : false}
           onPress={() => handleItem()}
           size={'sm'}
+          colorScheme='teal'
         >
           {i18n.t('AddItem')}
         </Button>

@@ -1,21 +1,18 @@
 import React, { FC } from 'react'
-import { StyleSheet } from 'react-native'
 import { Button } from 'native-base'
 
-import { errorColor } from '../style/colors'
+import { error, teal } from '../style/colors'
 
 type YesNoButtonGroupProps = {
   yesText: string
   noText: string
   yesDisabled?: boolean
-  yesColor?: string
   yesOnPress: () => void
   noOnPress: () => void
 }
 
 const YesNoButtonGroup: FC<YesNoButtonGroupProps> = (props) => {
-  const { yesText, noText, yesDisabled, yesColor, yesOnPress, noOnPress } =
-    props
+  const { yesText, noText, yesDisabled, yesOnPress, noOnPress } = props
   return (
     <Button.Group
       variant='solid'
@@ -33,7 +30,8 @@ const YesNoButtonGroup: FC<YesNoButtonGroupProps> = (props) => {
         size={'sm'}
         flexGrow={1}
         m={'1'}
-        colorScheme='danger'
+        bg={'rose.600'}
+        colorScheme={'rose'}
         _text={{
           color: 'white',
         }}
@@ -46,7 +44,7 @@ const YesNoButtonGroup: FC<YesNoButtonGroupProps> = (props) => {
         size={'sm'}
         flexGrow={1}
         m={'1'}
-        colorScheme={yesColor ? yesColor : 'cyan'}
+        colorScheme={'teal'}
       >
         {yesText}
       </Button>

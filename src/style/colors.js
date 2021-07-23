@@ -1,1 +1,19 @@
-export const errorColor = 'red'
+export const primaryBrand = '#023047'
+export const primaryText = '#474747'
+export const error = 'red'
+export const teal = '#14B8A6'
+export const primaryLink = '#2A85CB'
+
+// export const primaryBrand =
+// export const primaryLink =
+// export const error =
+// export const success =
+// export const outline =
+// export const alert =
+// export const background =
+// export const disabled =
+// export const textDisabled =
+// export const warning =
+// export const inverse =
+// export const white =
+// export const black =

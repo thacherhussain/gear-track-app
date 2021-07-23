@@ -7,6 +7,7 @@ import validateLogin from '../utils/validateLogin'
 import { ErrorText, Page } from '@src/components'
 import { loginWithEmail, registerWithEmail } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
+import { error } from '../style/colors'
 
 type State = {
   name: string
@@ -130,7 +131,12 @@ const Login: FC<Props> = (props) => {
           >
             {login ? i18n.t('SignIn') : i18n.t('Submit')}
           </Button>
-          <Button onPress={() => toggleSignUpLogin()} size={'sm'} m={'1'}>
+          <Button
+            onPress={() => toggleSignUpLogin()}
+            size={'sm'}
+            m={'1'}
+            bg={error}
+          >
             {login ? i18n.t('NeedAnAccount') : i18n.t('AlreadyHaveAnAccount')}
           </Button>
         </Button.Group>
