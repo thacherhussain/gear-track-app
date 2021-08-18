@@ -7,7 +7,6 @@ import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { Page } from '@src/components'
-import { teal } from '../style/colors'
 
 type AddItemProps = {
   navigation: StackNavigationProp<RootStackParamList, 'AddItem'>
@@ -44,7 +43,6 @@ const AddItems: FC<AddItemProps> = (props) => {
           value={itemName}
           onChangeText={setItemName}
         />
-
         <Input
           placeholder={i18n.t('Brand')}
           value={itemBrand}

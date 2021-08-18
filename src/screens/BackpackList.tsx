@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { Button } from 'native-base'
 
 import i18n from '../localization/i18n'
 import { RootStackParamList } from '@src/types'
@@ -15,7 +16,10 @@ const BackpackList: FC<BackpackListProps> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text>Backpack List</Text>
+      <Text>{i18n.t('BackpackList')}</Text>
+      <Button onPress={() => navigation.navigate('AddItem')}>
+        {i18n.t('AddNewBackpack')}
+      </Button>
     </View>
   )
 }

@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   listTitle: {
-    fontSize: 14,
+    fontSize: 24,
   },
   listDescription: {
-    fontSize: 10,
+    fontSize: 16,
   },
   listItem: {
     padding: 0,
