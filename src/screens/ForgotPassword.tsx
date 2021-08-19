@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Stack, Input, Button } from 'native-base'
+import { Stack, Input, Button, Center } from 'native-base'
 
 import i18n from '../localization/i18n'
 import { ErrorText, FeedbackText, Page } from '@src/components'
@@ -39,13 +39,16 @@ const ForgotPassword: FC<ForgotPasswordProps> = () => {
           onChangeText={setEmail}
           autoCapitalize={'none'}
         />
-        <Button
-          onPress={() => handleResetPassword()}
-          size={'sm'}
-          colorScheme='teal'
-        >
-          {i18n.t('ResetPassword')}
-        </Button>
+        <Center>
+          <Button
+            onPress={() => handleResetPassword()}
+            size={'sm'}
+            colorScheme='teal'
+            style={{ minWidth: 250 }}
+          >
+            {i18n.t('ResetPassword')}
+          </Button>
+        </Center>
         {isPasswordReset && (
           <FeedbackText text={i18n.t('CheckYourEmailToResetPassword')} />
         )}

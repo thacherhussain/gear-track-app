@@ -7,7 +7,6 @@ import validateLogin from '../utils/validateLogin'
 import { ErrorText, Page } from '@src/components'
 import { loginWithEmail, registerWithEmail } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
-import { error } from '../style/colors'
 
 type State = {
   name: string
@@ -112,44 +111,38 @@ const Login: FC<Props> = (props) => {
         {!errors.password && firebaseError && (
           <ErrorText>{firebaseError}</ErrorText>
         )}
+      </Stack>
 
-        <Button.Group
-          flexDirection={'column'}
-          variant='solid'
-          isAttached
-          space={6}
-          mx={{
-            base: 'auto',
-            md: 0,
-          }}
-        >
+      <Center>
+        <Stack space={4} paddingX={4}>
           <Button
             onPress={() => signUp()}
             size={'sm'}
             m={'1'}
             colorScheme='teal'
+            style={{ minWidth: 250 }}
           >
             {login ? i18n.t('SignIn') : i18n.t('Submit')}
           </Button>
-          <Button
-            onPress={() => toggleSignUpLogin()}
-            size={'sm'}
-            m={'1'}
-            bg={error}
-          >
-            {login ? i18n.t('NeedAnAccount') : i18n.t('AlreadyHaveAnAccount')}
-          </Button>
-        </Button.Group>
-      </Stack>
-      <Center>
-        <Link
-          onPress={() => navigation.navigate('ForgotPassword')}
-          _text={{
-            fontSize: 'sm',
-          }}
-        >
-          {i18n.t('ForgotPassword')}
-        </Link>
+          <Center>
+            <Link
+              onPress={() => toggleSignUpLogin()}
+              _text={{
+                fontSize: 'sm',
+              }}
+            >
+              {login ? i18n.t('NeedAnAccount') : i18n.t('AlreadyHaveAnAccount')}
+            </Link>
+            <Link
+              onPress={() => navigation.navigate('ForgotPassword')}
+              _text={{
+                fontSize: 'sm',
+              }}
+            >
+              {i18n.t('ForgotPassword')}
+            </Link>
+          </Center>
+        </Stack>
       </Center>
     </Page>
   )
