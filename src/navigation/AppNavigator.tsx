@@ -43,8 +43,12 @@ const AppNavigator = () => {
     <Drawer.Navigator
       screenOptions={{ swipeEnabled: true }}
       drawerStyle={{
-        backgroundColor: '#e4e4e7',
+        backgroundColor: 'white',
         width: 200,
+      }}
+      drawerContentOptions={{
+        activeTintColor: '#13b8a6',
+        activeBackgroundColor: 'white',
       }}
       drawerContent={(props) => {
         return (

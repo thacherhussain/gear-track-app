@@ -16,7 +16,7 @@ import i18n from '../localization/i18n'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
 import { RootStackParamList } from '@src/types'
-import { primaryLink } from '../style/colors'
+import { teal } from '../style/colors'
 import { Page } from '../components'
 
 type GearListProps = {
@@ -88,6 +88,7 @@ const GearList: FC<GearListProps> = (props) => {
       style={styles.fab}
       small
       icon='plus'
+      color={'white'}
       label={i18n.t('AddNewItem')}
       onPress={() => navigation.navigate('AddItem')}
     />
@@ -103,7 +104,7 @@ const GearList: FC<GearListProps> = (props) => {
     ) : (
       <FlatList
         data={gear}
-        style={{ height: '110%' }}
+        style={styles.flatList}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={refreshGear} />
         }
@@ -117,7 +118,7 @@ const GearList: FC<GearListProps> = (props) => {
             style={styles.listItem}
             onPress={() => onPress(item)}
             right={() => (
-              <IconButton icon='chevron-right' size={30} color={primaryLink} />
+              <IconButton icon='chevron-right' size={30} color={teal} />
             )}
           />
         )}
@@ -159,6 +160,11 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     right: 0,
     bottom: 10,
+    backgroundColor: teal,
+  },
+  flatList: {
+    height: '110%',
+    paddingTop: 16,
   },
   listTitle: {
     fontSize: 24,

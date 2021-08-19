@@ -1,7 +1,7 @@
 export const primaryBrand = '#023047'
 export const primaryText = '#474747'
 export const error = 'red'
-export const teal = '#14B8A6'
+export const teal = '#13B8A6'
 export const primaryLink = '#2A85CB'
 
 // export const primaryBrand =
