@@ -4,9 +4,9 @@ import { RouteProp } from '@react-navigation/native'
 import { Stack, Input, Box, Text } from 'native-base'
 
 import i18n from '../localization/i18n'
+import { RootStackParamList } from '@src/types'
 import { AppContext } from '../navigation/AppProvider'
 import { db } from '../firebase/firebase'
-import { RootStackParamList } from '@src/types'
 import { Page, YesNoButtonGroup } from '@src/components'
 
 type GearDetailRouteProp = RouteProp<RootStackParamList, 'GearDetail'>

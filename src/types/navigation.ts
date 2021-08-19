@@ -7,5 +7,8 @@ export type RootStackParamList = {
     singleItem: any
   }
   BackpackList: undefined
-  BackpackDetail: undefined
+  BackpackDetail: {
+    singleItem: any
+  }
+  AddBackpack: undefined
 }

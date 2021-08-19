@@ -16,6 +16,8 @@ import Login from '@src/screens/Login'
 import GearList from '@src/screens/GearList'
 import BackpackList from '@src/screens/BackpackList'
 import GearDetail from '@src/screens/GearDetail'
+import BackpackDetail from '@src/screens/BackpackDetail'
+import AddBackpack from '@src/screens/AddBackpack'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -89,7 +91,11 @@ const LoginNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Login' component={Login} />
-      <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
+      <Stack.Screen
+        name='ForgotPassword'
+        component={ForgotPassword}
+        options={{ title: 'Forgot Password' }}
+      />
     </Stack.Navigator>
   )
 }
@@ -111,8 +117,16 @@ const GearNavigator = () => {
           name='Gear'
           component={GearList}
         />
-        <Stack.Screen name='GearDetail' component={GearDetail} />
-        <Stack.Screen name='AddItem' component={AddItem} />
+        <Stack.Screen
+          name='GearDetail'
+          component={GearDetail}
+          options={{ title: 'Gear Detail' }}
+        />
+        <Stack.Screen
+          name='AddItem'
+          component={AddItem}
+          options={{ title: 'Add Item' }}
+        />
       </Stack.Navigator>
     </>
   )
@@ -134,6 +148,16 @@ const BackpackNavigator = () => {
           })}
           name='Backpacks'
           component={BackpackList}
+        />
+        <Stack.Screen
+          name='BackpackDetail'
+          component={BackpackDetail}
+          options={{ title: 'Backpack Detail' }}
+        />
+        <Stack.Screen
+          name='AddBackpack'
+          component={AddBackpack}
+          options={{ title: 'Add Backpack' }}
         />
       </Stack.Navigator>
     </>
