@@ -10,7 +10,7 @@ import {
 
 import { AppContext } from '@src/navigation/AppProvider'
 import { auth, logout } from '@src/firebase/firebase'
-import AddItem from '@src/screens/AddItem'
+import AddGearItem from '@src/screens/AddGearItem'
 import ForgotPassword from '@src/screens/ForgotPassword'
 import Login from '@src/screens/Login'
 import GearList from '@src/screens/GearList'
@@ -118,8 +118,8 @@ const GearNavigator = () => {
           options={{ title: 'Gear Detail' }}
         />
         <Stack.Screen
-          name='AddItem'
-          component={AddItem}
+          name='AddGearItem'
+          component={AddGearItem}
           options={{ title: 'Add Item' }}
         />
       </Stack.Navigator>

@@ -20,11 +20,10 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
   const { navigation, route } = props
   const { singleItem } = route.params
 
-  const { backpackName, backpackDescription, id } = singleItem
+  const { name, description, id } = singleItem
 
-  const [newBackpackName, setNewBackpackName] = useState<string>(backpackName)
-  const [newBackpackDescription, setNewBackpackDescription] =
-    useState<string>(backpackDescription)
+  const [newName, setNewName] = useState<string>(name)
+  const [newDescription, setNewDescription] = useState<string>(description)
   const [editing, setEditing] = useState<boolean>(false)
 
   const { user } = useContext(AppContext)
@@ -38,8 +37,8 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
   const handleEditItem = () => {
     firebaseItem
       .set({
-        backpackName: newBackpackName,
-        backpackDescription: newBackpackDescription,
+        name: newName,
+        description: newDescription,
       })
       .then(() => {
         navigation.goBack()
@@ -66,8 +65,8 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
       {!editing ? (
         <>
           <Box m={4}>
-            <Text fontSize={'2xl'}>Backpack Name: {backpackName}</Text>
-            <Text>Backpack Description: {backpackDescription}</Text>
+            <Text fontSize={'2xl'}>{name}</Text>
+            <Text>Description: {description}</Text>
           </Box>
           <YesNoButtonGroup
             yesText={i18n.t('Edit')}
@@ -79,18 +78,18 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
       ) : (
         <>
           <Box m={4}>
-            <Text fontSize={'2xl'}>{i18n.t('EditItem')}</Text>
+            <Text fontSize={'2xl'}>{i18n.t('EditBackpack')}</Text>
           </Box>
           <Stack space={4} px={4}>
             <Input
               placeholder={i18n.t('ItemName')}
-              value={newBackpackName}
-              onChangeText={setNewBackpackName}
+              value={newName}
+              onChangeText={setNewName}
             />
             <Input
               placeholder={i18n.t('ItemDescription')}
-              value={newBackpackDescription}
-              onChangeText={setNewBackpackDescription}
+              value={newDescription}
+              onChangeText={setNewDescription}
               multiline={true}
               height={200}
               scrollEnabled={true}
@@ -101,7 +100,7 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
           <YesNoButtonGroup
             yesText={i18n.t('Save')}
             noText={i18n.t('Cancel')}
-            yesDisabled={newBackpackName == '' ? true : false}
+            yesDisabled={newName == '' ? true : false}
             yesOnPress={() => handleEditItem()}
             noOnPress={() => setEditing(false)}
           />

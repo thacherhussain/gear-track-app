@@ -14,8 +14,8 @@ type AddBackpackProps = {
 
 const AddBackpack: FC<AddBackpackProps> = (props) => {
   const { navigation } = props
-  const [backpackName, setBackpackName] = useState<string>('')
-  const [backpackDescription, setBackpackDescription] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
 
   const { user } = useContext(AppContext)
   const userId = user.uid
@@ -24,8 +24,8 @@ const AddBackpack: FC<AddBackpackProps> = (props) => {
       navigation.goBack()
     } else {
       const newItem = {
-        backpackName,
-        backpackDescription,
+        name,
+        description,
       }
       db.collection('main').doc(userId).collection('backpacks').add(newItem)
       navigation.goBack()
@@ -37,18 +37,18 @@ const AddBackpack: FC<AddBackpackProps> = (props) => {
       <Stack space={4} paddingX={4} safeArea>
         <Input
           placeholder={i18n.t('Name')}
-          value={backpackName}
-          onChangeText={setBackpackName}
+          value={name}
+          onChangeText={setName}
         />
         <Input
           placeholder={i18n.t('Description')}
-          value={backpackDescription}
-          onChangeText={setBackpackDescription}
+          value={description}
+          onChangeText={setDescription}
           multiline={true}
           height={200}
         />
         <Button
-          disabled={backpackName == '' ? true : false}
+          disabled={name == '' ? true : false}
           onPress={() => handleItem()}
           size={'sm'}
           colorScheme='teal'

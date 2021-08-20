@@ -1,19 +1,19 @@
 export type Gear = {
   id: string
-  itemName: string
-  itemDescription: string
+  name: string
+  description: string
 }
 
 export type Backpack = {
   id: string
-  backpackName: string
-  backpackDescription: string
+  name: string
+  description: string
 }
 
 export type RootStackParamList = {
   Login: undefined
   ForgotPassword: undefined
-  AddItem: undefined
+  AddGearItem: undefined
   GearList: undefined
   GearDetail: {
     singleItem: Gear

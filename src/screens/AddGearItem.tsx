@@ -8,18 +8,18 @@ import { db } from '@src/firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { Page } from '@src/components'
 
-type AddItemProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'AddItem'>
+type AddGearItemProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'AddGearItem'>
 }
 
-const AddItems: FC<AddItemProps> = (props) => {
+const AddGearItems: FC<AddGearItemProps> = (props) => {
   const { navigation } = props
-  const [itemName, setItemName] = useState<string>('')
-  const [itemDescription, setItemDescription] = useState<string>('')
-  const [itemBrand, setItemBrand] = useState<string>('')
-  const [itemColor, setItemColor] = useState<string>('')
-  const [itemSize, setItemSize] = useState<string>('')
-  const [itemWeight, setItemWeight] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [brand, setBrand] = useState<string>('')
+  const [color, setColor] = useState<string>('')
+  const [size, setSize] = useState<string>('')
+  const [weight, setWeight] = useState<string>('')
   const { user } = useContext(AppContext)
   const userId = user.uid
   function handleItem() {
@@ -27,8 +27,8 @@ const AddItems: FC<AddItemProps> = (props) => {
       navigation.goBack()
     } else {
       const newItem = {
-        itemName,
-        itemDescription,
+        name,
+        description,
       }
       db.collection('main').doc(userId).collection('gear').add(newItem)
       navigation.goBack()
@@ -40,35 +40,35 @@ const AddItems: FC<AddItemProps> = (props) => {
       <Stack space={4} paddingX={4} safeArea>
         <Input
           placeholder={i18n.t('Name')}
-          value={itemName}
-          onChangeText={setItemName}
+          value={name}
+          onChangeText={setName}
         />
         <Input
           placeholder={i18n.t('Brand')}
-          value={itemBrand}
-          onChangeText={setItemBrand}
+          value={brand}
+          onChangeText={setBrand}
         />
         <Input
           placeholder={i18n.t('Color')}
-          value={itemColor}
-          onChangeText={setItemColor}
+          value={color}
+          onChangeText={setColor}
         />
         <Input
           placeholder={i18n.t('Size')}
-          value={itemSize}
-          onChangeText={setItemSize}
+          value={size}
+          onChangeText={setSize}
         />
         <Input
           placeholder={i18n.t('Weight')}
-          value={itemWeight}
-          onChangeText={setItemWeight}
+          value={weight}
+          onChangeText={setWeight}
         />
         {/* <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
             <Input
               placeholder={i18n.t('Weight')}
-              value={itemWeight}
-              onChangeText={setItemWeight}
+              value={weight}
+              onChangeText={setWeight}
             />
           </View>
           <View style={{ flex: 1, paddingLeft: 10, paddingTop: 10 }}>
@@ -77,22 +77,22 @@ const AddItems: FC<AddItemProps> = (props) => {
         </View> */}
         <Input
           placeholder={i18n.t('Description')}
-          value={itemDescription}
-          onChangeText={setItemDescription}
+          value={description}
+          onChangeText={setDescription}
           multiline={true}
           height={200}
         />
         <Button
-          disabled={itemName == '' ? true : false}
+          disabled={name == '' ? true : false}
           onPress={() => handleItem()}
           size={'sm'}
           colorScheme='teal'
         >
-          {i18n.t('AddItem')}
+          {i18n.t('AddGearItem')}
         </Button>
       </Stack>
     </Page>
   )
 }
 
-export default AddItems
+export default AddGearItems

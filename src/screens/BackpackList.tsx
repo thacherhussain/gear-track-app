@@ -55,7 +55,7 @@ const BackpackList: FC<BackpackListProps> = (props) => {
       }
     })
 
-    backpacksList.sort((a, b) => a.backpackName.localeCompare(b.backpackName))
+    backpacksList.sort((a, b) => a.name.localeCompare(b.name))
 
     setBackpacks(backpacksList)
     setIsLoading(false)
@@ -79,7 +79,7 @@ const BackpackList: FC<BackpackListProps> = (props) => {
       }
     })
 
-    backpacksList.sort((a, b) => a.backpackName.localeCompare(b.backpackName))
+    backpacksList.sort((a, b) => a.name.localeCompare(b.name))
     setBackpacks(backpacksList)
     setRefreshing(false)
   }
@@ -121,8 +121,8 @@ const BackpackList: FC<BackpackListProps> = (props) => {
         }
         renderItem={({ item }) => (
           <List.Item
-            title={item.backpackName}
-            description={item.backpackDescription}
+            title={item.name}
+            description={item.description}
             descriptionNumberOfLines={1}
             titleStyle={styles.listTitle}
             descriptionStyle={styles.listDescription}
@@ -144,7 +144,7 @@ const BackpackList: FC<BackpackListProps> = (props) => {
           <ActivityIndicator size='large' />
         </View>
       ) : (
-        <SafeAreaView style={{ height: '100%' }}>
+        <SafeAreaView style={{ height: '105%' }}>
           <View style={styles.container}>{body}</View>
           {addButton}
         </SafeAreaView>
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 20,
-    marginBottom: 40,
+    marginBottom: 75,
     right: 0,
     bottom: 10,
     backgroundColor: teal,

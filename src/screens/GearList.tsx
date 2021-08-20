@@ -54,7 +54,7 @@ const GearList: FC<GearListProps> = (props) => {
       }
     })
 
-    gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
+    gearList.sort((a, b) => a.name.localeCompare(b.name))
 
     setGear(gearList)
     setIsLoading(false)
@@ -77,7 +77,7 @@ const GearList: FC<GearListProps> = (props) => {
       }
     })
 
-    gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
+    gearList.sort((a, b) => a.name.localeCompare(b.name))
     setGear(gearList)
     setRefreshing(false)
   }
@@ -95,8 +95,8 @@ const GearList: FC<GearListProps> = (props) => {
       small
       icon='plus'
       color={'white'}
-      label={i18n.t('AddNewItem')}
-      onPress={() => navigation.navigate('AddItem')}
+      label={i18n.t('AddNewGear')}
+      onPress={() => navigation.navigate('AddGearItem')}
     />
   )
 
@@ -116,8 +116,8 @@ const GearList: FC<GearListProps> = (props) => {
         }
         renderItem={({ item }) => (
           <List.Item
-            title={item.itemName}
-            description={item.itemDescription}
+            title={item.name}
+            description={item.description}
             descriptionNumberOfLines={1}
             titleStyle={styles.listTitle}
             descriptionStyle={styles.listDescription}
@@ -139,7 +139,7 @@ const GearList: FC<GearListProps> = (props) => {
           <ActivityIndicator size='large' />
         </View>
       ) : (
-        <SafeAreaView style={{ height: '100%' }}>
+        <SafeAreaView style={{ height: '105%' }}>
           <View style={styles.container}>{body}</View>
           {addButton}
         </SafeAreaView>
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 20,
-    marginBottom: 40,
+    marginBottom: 75,
     right: 0,
     bottom: 10,
     backgroundColor: teal,

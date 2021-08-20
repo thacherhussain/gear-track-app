@@ -20,11 +20,10 @@ const GearDetails: FC<GearDetailProps> = (props) => {
   const { navigation, route } = props
   const { singleItem } = route.params
 
-  const { itemName, itemDescription, id } = singleItem
+  const { name, description, id } = singleItem
 
-  const [newItemName, setNewItemName] = useState<string>(itemName)
-  const [newItemDescription, setNewItemDescription] =
-    useState<string>(itemDescription)
+  const [newName, setNewName] = useState<string>(name)
+  const [newDescription, setNewDescription] = useState<string>(description)
   const [editing, setEditing] = useState<boolean>(false)
 
   const { user } = useContext(AppContext)
@@ -38,8 +37,8 @@ const GearDetails: FC<GearDetailProps> = (props) => {
   const handleEditItem = () => {
     firebaseItem
       .set({
-        itemName: newItemName,
-        itemDescription: newItemDescription,
+        name: newName,
+        description: newDescription,
       })
       .then(() => {
         navigation.goBack()
@@ -66,8 +65,8 @@ const GearDetails: FC<GearDetailProps> = (props) => {
       {!editing ? (
         <>
           <Box m={4}>
-            <Text fontSize={'2xl'}>Item Name: {itemName}</Text>
-            <Text>Item Description: {itemDescription}</Text>
+            <Text fontSize={'2xl'}>{name}</Text>
+            <Text>Description: {description}</Text>
           </Box>
           <YesNoButtonGroup
             yesText={i18n.t('Edit')}
@@ -79,18 +78,18 @@ const GearDetails: FC<GearDetailProps> = (props) => {
       ) : (
         <>
           <Box m={4}>
-            <Text fontSize={'2xl'}>{i18n.t('EditItem')}</Text>
+            <Text fontSize={'2xl'}>{i18n.t('EditGear')}</Text>
           </Box>
           <Stack space={4} px={4}>
             <Input
               placeholder={i18n.t('ItemName')}
-              value={newItemName}
-              onChangeText={setNewItemName}
+              value={newName}
+              onChangeText={setNewName}
             />
             <Input
               placeholder={i18n.t('ItemDescription')}
-              value={newItemDescription}
-              onChangeText={setNewItemDescription}
+              value={newDescription}
+              onChangeText={setNewDescription}
               multiline={true}
               height={200}
               scrollEnabled={true}
@@ -101,7 +100,7 @@ const GearDetails: FC<GearDetailProps> = (props) => {
           <YesNoButtonGroup
             yesText={i18n.t('Save')}
             noText={i18n.t('Cancel')}
-            yesDisabled={newItemName == '' ? true : false}
+            yesDisabled={newName == '' ? true : false}
             yesOnPress={() => handleEditItem()}
             noOnPress={() => setEditing(false)}
           />
