@@ -2,10 +2,10 @@ import React, { FC, useState, useEffect } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Stack, Input, Button, Link, Center } from 'native-base'
 
-import i18n from '../localization/i18n'
-import validateLogin from '../utils/validateLogin'
+import i18n from '@src/localization/i18n'
+import validateLogin from '@src/utils/validateLogin'
 import { ErrorText, Page } from '@src/components'
-import { loginWithEmail, registerWithEmail } from '../firebase/firebase'
+import { loginWithEmail, registerWithEmail } from '@src/firebase/firebase'
 import { RootStackParamList } from '@src/types'
 
 type State = {

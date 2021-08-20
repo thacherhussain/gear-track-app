@@ -12,12 +12,12 @@ import { Center, Text } from 'native-base'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 
-import i18n from '../localization/i18n'
-import { AppContext } from '../navigation/AppProvider'
-import { db } from '../firebase/firebase'
-import { RootStackParamList } from '@src/types'
-import { teal } from '../style/colors'
-import { Page } from '../components'
+import i18n from '@src/localization/i18n'
+import { AppContext } from '@src/navigation/AppProvider'
+import { db } from '@src/firebase/firebase'
+import { RootStackParamList, Gear } from '@src/types'
+import { teal } from '@src/style/colors'
+import { Page } from '@src/components'
 
 type GearListProps = {
   navigation: StackNavigationProp<RootStackParamList, 'GearList'>
@@ -27,7 +27,7 @@ const GearList: FC<GearListProps> = (props) => {
   const { navigation } = props
   const { user } = useContext(AppContext)
 
-  const [gear, setGear] = useState<any[]>([])
+  const [gear, setGear] = useState<Gear[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [refreshing, setRefreshing] = useState(false)
 
@@ -42,14 +42,16 @@ const GearList: FC<GearListProps> = (props) => {
     const doc = await db.collection('main').doc(user.uid).get()
     const gearRef = await doc.ref.collection('gear').get()
 
-    const gearList: any[] = []
+    const gearList: Gear[] = []
 
-    gearRef.forEach((item: any) => {
-      const data = item.data()
-      gearList.push({
-        ...data,
-        id: item.id,
-      })
+    gearRef.forEach((item) => {
+      const data = item.data() as Gear | undefined
+      if (data) {
+        gearList.push({
+          ...data,
+          id: item.id,
+        })
+      }
     })
 
     gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
@@ -63,14 +65,16 @@ const GearList: FC<GearListProps> = (props) => {
     const doc = await db.collection('main').doc(user.uid).get()
     const gearRef = await doc.ref.collection('gear').get()
 
-    const gearList: any[] = []
+    const gearList: Gear[] = []
 
-    gearRef.forEach((item: any) => {
-      const data = item.data()
-      gearList.push({
-        ...data,
-        id: item.id,
-      })
+    gearRef.forEach((item) => {
+      const data = item.data() as Gear | undefined
+      if (data) {
+        gearList.push({
+          ...data,
+          id: item.id,
+        })
+      }
     })
 
     gearList.sort((a, b) => a.itemName.localeCompare(b.itemName))
@@ -78,9 +82,11 @@ const GearList: FC<GearListProps> = (props) => {
     setRefreshing(false)
   }
 
-  const onPress = (item: any) => {
+  const onPress = (item: Gear) => {
     const singleItem = gear.find((i) => i.id === item.id)
-    navigation.navigate('GearDetail', { singleItem: singleItem })
+    if (singleItem) {
+      navigation.navigate('GearDetail', { singleItem: singleItem })
+    }
   }
 
   const addButton = (

@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
 import { Text } from 'native-base'
 
-import { error } from '../style/colors'
+import { error } from '@src/style/colors'
 
 type ErrorTextProps = {
   children: ReactNode

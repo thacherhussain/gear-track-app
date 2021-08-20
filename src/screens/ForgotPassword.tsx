@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
 import { Stack, Input, Button, Center } from 'native-base'
 
-import i18n from '../localization/i18n'
+import i18n from '@src/localization/i18n'
 import { ErrorText, FeedbackText, Page } from '@src/components'
-import { passwordReset } from '../firebase/firebase'
+import { passwordReset } from '@src/firebase/firebase'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '@src/types'
 

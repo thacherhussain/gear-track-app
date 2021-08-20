@@ -12,12 +12,12 @@ import { Center, Text } from 'native-base'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 
-import i18n from '../localization/i18n'
-import { AppContext } from '../navigation/AppProvider'
-import { db } from '../firebase/firebase'
-import { RootStackParamList } from '@src/types'
-import { teal } from '../style/colors'
-import { Page } from '../components'
+import i18n from '@src/localization/i18n'
+import { AppContext } from '@src/navigation/AppProvider'
+import { db } from '@src/firebase/firebase'
+import { RootStackParamList, Backpack } from '@src/types'
+import { teal } from '@src/style/colors'
+import { Page } from '@src/components'
 
 type BackpackListProps = {
   navigation: StackNavigationProp<RootStackParamList, 'BackpackList'>
@@ -27,8 +27,8 @@ const BackpackList: FC<BackpackListProps> = (props) => {
   const { navigation } = props
   const { user } = useContext(AppContext)
 
-  const [backpacks, setBackpacks] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [backpacks, setBackpacks] = useState<Backpack[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
 
   useFocusEffect(
@@ -42,14 +42,17 @@ const BackpackList: FC<BackpackListProps> = (props) => {
     const doc = await db.collection('main').doc(user.uid).get()
     const backpacksRef = await doc.ref.collection('backpacks').get()
 
-    const backpacksList: any[] = []
+    const backpacksList: Backpack[] = []
 
-    backpacksRef.forEach((item: any) => {
-      const data = item.data()
-      backpacksList.push({
-        ...data,
-        id: item.id,
-      })
+    backpacksRef.forEach((item) => {
+      const data = item.data() as Backpack | undefined
+
+      if (data) {
+        backpacksList.push({
+          ...data,
+          id: item.id,
+        })
+      }
     })
 
     backpacksList.sort((a, b) => a.backpackName.localeCompare(b.backpackName))
@@ -61,16 +64,19 @@ const BackpackList: FC<BackpackListProps> = (props) => {
   const refreshBackpacks = async () => {
     setRefreshing(true)
     const doc = await db.collection('main').doc(user.uid).get()
-    const gearRef = await doc.ref.collection('backpacks').get()
+    const backpackRef = await doc.ref.collection('backpacks').get()
 
-    const backpacksList: any[] = []
+    const backpacksList: Backpack[] = []
 
-    gearRef.forEach((item: any) => {
-      const data = item.data()
-      backpacksList.push({
-        ...data,
-        id: item.id,
-      })
+    backpackRef.forEach((item) => {
+      const data = item.data() as Backpack | undefined
+
+      if (data) {
+        backpacksList.push({
+          ...data,
+          id: item.id,
+        })
+      }
     })
 
     backpacksList.sort((a, b) => a.backpackName.localeCompare(b.backpackName))
@@ -78,9 +84,11 @@ const BackpackList: FC<BackpackListProps> = (props) => {
     setRefreshing(false)
   }
 
-  const onPress = (item: any) => {
+  const onPress = (item: Backpack) => {
     const singleItem = backpacks.find((i) => i.id === item.id)
-    navigation.navigate('BackpackDetail', { singleItem: singleItem })
+    if (singleItem) {
+      navigation.navigate('BackpackDetail', { singleItem: singleItem })
+    }
   }
 
   const addButton = (

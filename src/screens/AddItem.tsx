@@ -2,9 +2,9 @@ import React, { FC, useState, useContext } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Stack, Input, Button } from 'native-base'
 
-import i18n from '../localization/i18n'
-import { AppContext } from '../navigation/AppProvider'
-import { db } from '../firebase/firebase'
+import i18n from '@src/localization/i18n'
+import { AppContext } from '@src/navigation/AppProvider'
+import { db } from '@src/firebase/firebase'
 import { RootStackParamList } from '@src/types'
 import { Page } from '@src/components'
 

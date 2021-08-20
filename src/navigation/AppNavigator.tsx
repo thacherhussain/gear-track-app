@@ -8,8 +8,8 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer'
 
-import { AppContext } from './AppProvider'
-import { auth, logout } from '../firebase/firebase'
+import { AppContext } from '@src/navigation/AppProvider'
+import { auth, logout } from '@src/firebase/firebase'
 import AddItem from '@src/screens/AddItem'
 import ForgotPassword from '@src/screens/ForgotPassword'
 import Login from '@src/screens/Login'
@@ -31,11 +31,11 @@ const AppNavigator = () => {
     !user ? setIsSignedIn(false) : setIsSignedIn(true)
   }, [user])
 
-  async function handleSignOut(props: any) {
+  async function handleSignOut(closeDrawer: () => void) {
     try {
       await logout()
       setIsSignedIn(false)
-      props.navigation.closeDrawer()
+      closeDrawer()
     } catch (error) {
       console.log(error)
     }
@@ -56,7 +56,10 @@ const AppNavigator = () => {
         return (
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem label='Logout' onPress={() => handleSignOut(props)} />
+            <DrawerItem
+              label='Logout'
+              onPress={() => handleSignOut(props.navigation.closeDrawer)}
+            />
           </DrawerContentScrollView>
         )
       }}
@@ -77,15 +80,7 @@ const LoginNavigator = () => {
   const { setUser } = useContext(AppContext)
 
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged(async (authUser: any) => {
-      try {
-        await (authUser ? setUser(authUser) : setUser(null))
-      } catch (error) {
-        console.log(error)
-      }
-    })
-
-    return unsubscribeAuth
+    return auth.onAuthStateChanged(setUser)
   }, [])
 
   return (

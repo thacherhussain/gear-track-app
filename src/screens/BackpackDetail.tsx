@@ -3,10 +3,10 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 import { Stack, Input, Box, Text } from 'native-base'
 
-import i18n from '../localization/i18n'
+import i18n from '@src/localization/i18n'
 import { RootStackParamList } from '@src/types'
-import { AppContext } from '../navigation/AppProvider'
-import { db } from '../firebase/firebase'
+import { AppContext } from '@src/navigation/AppProvider'
+import { db } from '@src/firebase/firebase'
 import { Page, YesNoButtonGroup } from '@src/components'
 
 type BackpackDetailRouteProp = RouteProp<RootStackParamList, 'BackpackDetail'>
@@ -44,7 +44,7 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
       .then(() => {
         navigation.goBack()
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         console.error('Error editing document: ', error)
       })
   }
@@ -56,7 +56,7 @@ const BackpackDetail: FC<BackpackDetailProps> = (props) => {
         console.log('Document successfully deleted!')
         navigation.goBack()
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         console.error('Error removing document: ', error)
       })
   }

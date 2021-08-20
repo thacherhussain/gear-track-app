@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
 import { Button } from 'native-base'
 
-import { error, teal } from '../style/colors'
-
 type YesNoButtonGroupProps = {
   yesText: string
   noText: string
